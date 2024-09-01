@@ -1,0 +1,38 @@
+---
+title: "Python 環境"
+jupyter: python3
+---
+
+QGIS をインストールすると、QGIS 内に Python がインストールされます。通常、この Python を使って開発すると良いでしょう。
+
+## Python の位置 {#sec-python-folder}
+
+- Windows スタンドアロン 
+- Windows OSGeo4W C:\\OSGeo4W\\bin\\python3 または C:\\OSGeo4W\\apps\\Python312\\python3 
+- macOS: /Applications/QGIS-LTR.app/Contents/MacOS/bin/python3
+
+## MyPlugin.py
+
+プラグイン名を MyPlugin としたとすると、フォルダ内に `MyPlugin.py` という Python スクリプトができていると思います。
+
+ここに
+
+## ファイル管理
+
+よく使う関数 (例: `getValue()`) などを、`MyPlugin.py` から独立したファイル (例: `Utils.py`) に保存するときがあります。
+
+この場合、`MyPlugin.py` の冒頭に
+
+```{python}
+#| eval: FALSE
+from . import Utils
+
+...
+
+
+Utils.getValue()
+```
+
+と記述することで、Utils 内の関数などが使えるようになります。
+
+

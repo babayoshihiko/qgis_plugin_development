@@ -1,0 +1,10 @@
+---
+title: "開発環境"
+jupyter: python3
+---
+
+Python のソースコードを書くには、テキストエディタまたは統合開発環境があると便利です。
+
+QGIS の Python コンソールにも、Python ソースを書くためのエディタがあります。
+
+![QGIS Python](img/editor-1.png)

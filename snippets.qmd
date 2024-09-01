@@ -1,0 +1,42 @@
+---
+title: "Code Snippets"
+jupyter: python3
+---
+
+PyQt でプログラミングを行う際に有用な Python コードなどを紹介します。
+
+## ZIP ファイルの解凍の際に文字化けを防ぐ
+
+ZIP ファイル内に日本語があり、文字コードが CP437 であると文字化けを起こします。このため、ZIP ファイル内の一つ一つのファイルを取得して書き出しを行います。
+
+なお、「一つ一つのファイル」の中にはフォルダもあります。フォルダの場合はフォルダを作成します。
+
+```{python}
+#| eval: FALSE
+import os
+import zipfile
+
+
+folder_path = "~"
+zip_filename = "A.zip"
+
+if os.path.exists(os.path.join(folder_path, zip_filename)):
+    with zipfile.ZipFile(os.path.join(folder_path, zip_filename), 'r') as zf:
+        # Iterate through each file in the zip
+        for zip_info in zf.infolist():
+            # Extract the filename using the correct encoding 
+            # (e.g. 'cp932' for Japanese Windows)
+            filename = zip_info.filename.encode('cp437').decode('cp932')
+            # Construct the output file path
+            output_file_path = os.path.join(folder_path, filename)
+            if zip_info.is_dir():
+                # Create directories if they do not exist
+                os.makedirs(output_file_path, exist_ok=True)
+            else:
+                os.makedirs(os.path.dirname(output_file_path), exist_ok=True)
+                # Extract the file
+                with zf.open(zip_info) as file:
+                    with open(output_file_path, 'wb') as out_file:
+                        out_file.write(file.read())
+```
+

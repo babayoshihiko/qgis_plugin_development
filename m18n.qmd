@@ -1,0 +1,91 @@
+---
+title: "多言語化"
+jupyter: python3
+---
+
+QGIS Plugin Builder で Plugin 開発を始めると、ある程度の準備が自動的になされています。
+
+最終的には、
+
+MyPlugin/i18n/MyPlugin_ja.qm
+
+というファイルを作ることが目的です。MyPlugin はプラグイン名、ja は言語コードになります。
+
+## 流れ
+
+1. *.ui ファイルと MyPlugin.py などにメッセージを self.tr('Sample text') などと記述
+2. pylupdate で、Python スクリプト内の翻訳すべき言語を抽出 (MyPlugin.pro を作成)
+3. Linguist で MyPlugin_ja.ts ファイルを編集しリリース (MyPlugin_ja.ts が作成される)
+
+## 多言語化のフォルダ {#sec-m18n-folder}
+
+MyPlugin フォルダ内に、i18n というフォルダがあります。
+
+i18n フォルダ内には、af.ts というファイルがありますが、これはサンプルです。実際には不要なので、削除しましょう。
+
+## .pro ファイルを作る
+
+テキストエディタで、i18n フォルダ内に MyPlugin.pro というファイル名でファイルを作成します。
+
+中身は以下の通りです。適宜、自分のファイル名に合わせてください。
+
+```
+FORMS = ../ MyPlugin_dialog_base.ui
+SOURCES = ../ MyPlugin_dialog.py ../MyPlugin.py ../MyPluginUtils.py
+TRANSLATIONS =  MyPlugin_ja.ts
+```
+
+また、Window から Dock に変えるなど、上記の中身に大きな変更が発生した場合も、.pro ファイルを作り直す必要があります。
+
+## .ts ファイルを作る
+
+次に、MyPlugin_ja.ts ファイルを作ります。これには、pylupdate という Python スクリプトが必要です。
+
+場所がわからない場合は、@sec-python-folder を参照。
+
+macOS: /Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5
+
+Windows の場合はコンソールなどで以下のように入力します。
+
+macOS の QGIS は、/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 が入っていますが、そのままでは使うことができません。一行目を以下のように書き換えましょう。
+
+#!/Applications/QGIS-LTR.app/Contents/MacOS/QGIS
+
+を
+
+#!/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3
+
+と書き換えます。
+
+```{bash}
+#| eval: FALSE
+cd /path/to/MyPlugin
+/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 -noobsolete i18n/jpdata.pro
+```
+
+これで、i18n フォルダ内に MyPlugin_ja.ts が作成されます。すでにある場合は、更新されます。
+
+
+## Linguist
+
+i18n フォルダ内の MyPlugin_ja.ts ファイルを、Linguist で開きます。
+
+macOS: /Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/qt5_applications/Qt/bin/Linguist.app
+
+Windows OSGeo4W インストールの場合
+
+```{bash}
+#| eval: FALSE
+C:\OSGeo4W\bin\python3
+```
+
+macOS の場合 (QGIS-LTR.app は、名前が異なる場合があります。)
+
+```{bash}
+#| eval: FALSE
+open /Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/qt5_applications/Qt/bin/Linguist.app
+```
+
+
+
+

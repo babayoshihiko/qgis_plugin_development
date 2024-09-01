@@ -1,0 +1,62 @@
+---
+title: "デザイン"
+jupyter: python3
+---
+
+QGIS Plugin を作成する出発点は、グラフィカル・ユーザー・インフターフェイス (GUI) から始めるかと思います。
+
+あらかじめ、紙などでこのようなウィンドウというものを作図しておきましょう。
+
+QGIS は、Python と Qt を PyQt で繋いでいます。同様のものに PySide というものがあり、検索時に PySide も多く表示されますが、PySide のコードは動作しないことが多いので注意しましょう。
+
+## Designer
+
+QGIS のフォルダ内には、Designer というアプリケーションが入っています。
+
+Windows の場合、@sec-win であらかじめ作っておいた designer_gui.bat をダブルクリックします。
+
+Windows OSGeo4W: C:\OSGeo4W\bin\designer_gui.bat
+
+macOS: /Applications/QGIS-LTR.app/Contents/MacOS/Designer.app
+
+## よく使う Widget
+
+GUI を設計する際には、Widget という言葉をよく使います。Widget とは、ボタンやテキスト入力などのパーツのことです。
+
+### LineEdit と TextEdit
+
+テキスト入力フォームには、以下のように三種類あります。
+
+lineEdit: 一行だけのシンプルなテキスト入力
+
+textEdit: 複数行で、太字なども可能
+
+plainTextEdit: 複数行で、太字などのないシンプルなテキスト入力
+
+### Label
+
+Label は、LineEdit などと異なり、ユーザが入力するのではないテキストです。
+
+### ListWidget
+
+List は、１列複数行で表示する表です。ListView と ListWidget がありますが、ListWidget の方が簡単に扱うことができます。
+
+デフォルトでは、１列ずつしか選択することができません。以下のコードで、複数行選択が可能になります。
+
+```{python}
+#| eval: FALSE
+from qgis.PyQt.QtWidgets import QAbstractItemView
+self.dlg.myListWidget.setSelectionMode(
+    QAbstractItemView.ExtendedSelection
+)
+```
+
+## レイアウト
+
+デフォルトでは、ユーザがウィンドウを大きくしても、LineEdit などはその大きさに合わせて伸びてくれません。
+
+多くの場合は、Layouts の Vertical Layout と Horizontal Layout を組み合わせてレイアウトを完成させます。
+
+ListWidget などを並べて、幅を可変にするには、Lay Out Horizontally in Splitter を使います。この Widget はデフォルトでは使えないグレーアウトの状態です。並べたい二つの ListWidget を選択した状態で、このボタンが有効になります。
+
+最後に、ウィンドウ全体を選択した状態で右クリックします。コンテキストメニューの一番下、Lay out > Lay Out in a Grid を選択します。

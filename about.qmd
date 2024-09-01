@@ -1,0 +1,29 @@
+---
+title: "はじめに"
+jupyter: python3
+---
+
+## はじめに
+
+このサイトは、
+
+## 参考
+
+* https://docs.qgis.org/3.34/ja/docs/pyqgis_developer_cookbook/plugins/index.html
+* GIS実習オープン教材
+  * https://gis-oer.github.io/gitbook/book/materials/python/10/10.html
+  * https://gis-oer.github.io/gitbook/book/materials/python/11/11.html
+
+## ライセンス
+
+License: CC BY SA
+
+## 著者について
+
+Author: Yoshihiko Bbaa
+
+[https://orcid.org/0000-0001-7034-9724](https://orcid.org/0000-0001-7034-9724)
+
+[https://plugins.qgis.org/plugins/author/Yoshihiko%2520Baba/](https://plugins.qgis.org/plugins/author/Yoshihiko%2520Baba/)
+
+[https://github.com/babayoshihiko](https://github.com/babayoshihiko)
