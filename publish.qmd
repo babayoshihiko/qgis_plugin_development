@@ -1,0 +1,16 @@
+---
+title: "公開"
+jupyter: python3
+---
+
+## OSGeo アカウント
+
+OSGeo アカウントを作成します。
+
+[https://www.osgeo.org/](https://www.osgeo.org/)
+
+## 公開
+
+QGIS Plugin サイトにログイン後、追加します。
+
+[https://plugins.qgis.org/](https://plugins.qgis.org/)

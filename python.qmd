@@ -7,13 +7,13 @@ QGIS をインストールすると、QGIS 内に Python がインストール�
 
 ## Python の位置 {#sec-python-folder}
 
-- Windows スタンドアロン C:\\Program Files\\QGIS 3.34.2\\apps\\Python39\\python3.exe 
+- Windows スタンドアロン C:\\Program Files\\QGIS 3.38.2\\apps\\Python39\\python3.exe 
 - Windows OSGeo4W C:\\OSGeo4W\\bin\\python3 または C:\\OSGeo4W\\apps\\Python312\\python3.exe 
 - macOS: /Applications/QGIS-LTR.app/Contents/MacOS/bin/python3
 
 ## モジュールの位置
 
-- Windows スタンドアロン C:\\Program Files\\QGIS 3.34.2\\apps\\Python39\\Lib\\site-packages
+- Windows スタンドアロン C:\\Program Files\\QGIS 3.38.2\\apps\\Python39\\Lib\\site-packages
 - Windows OSGeo4W C:\\OSGeo4W\\bin\\python3 または C:\\OSGeo4W\\apps\\Python312\\Lib\\site-packages
 - macOS:  /Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/
 

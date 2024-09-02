@@ -30,8 +30,8 @@ i18n フォルダ内には、af.ts というファイルがありますが、こ
 中身は以下の通りです。適宜、自分のファイル名に合わせてください。
 
 ```
-FORMS = ../ MyPlugin_dialog_base.ui
-SOURCES = ../ MyPlugin_dialog.py ../MyPlugin.py ../MyPluginUtils.py
+FORMS = ../MyPlugin_dialog_base.ui
+SOURCES = ../MyPlugin_dialog.py ../MyPlugin.py ../MyPluginUtils.py
 TRANSLATIONS =  MyPlugin_ja.ts
 ```
 

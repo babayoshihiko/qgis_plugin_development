@@ -11,6 +11,8 @@ book:
     - python.qmd
     - editor.qmd
     - m18n.qmd
+    - git.qmd
+    - publish.qmd
 
 format:
   html:
