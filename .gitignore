@@ -4,3 +4,6 @@
 .Ruserdata
 
 /.quarto/
+index.aux
+index.log
+index.tex
