@@ -139,8 +139,9 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#必須" id="toc-必須" class="nav-link active" data-scroll-target="#必須"><span class="toc-section-number">3.1</span>  必須</a>
   <ul class="collapse">
-  <li><a href="#macos" id="toc-macos" class="nav-link" data-scroll-target="#macos"><span class="toc-section-number">3.1.1</span>  macOS</a></li>
-  <li><a href="#sec-win" id="toc-sec-win" class="nav-link" data-scroll-target="#sec-win"><span class="toc-section-number">3.1.2</span>  Windows</a></li>
+  <li><a href="#バージョンについて" id="toc-バージョンについて" class="nav-link" data-scroll-target="#バージョンについて"><span class="toc-section-number">3.1.1</span>  バージョンについて</a></li>
+  <li><a href="#macos" id="toc-macos" class="nav-link" data-scroll-target="#macos"><span class="toc-section-number">3.1.2</span>  macOS</a></li>
+  <li><a href="#sec-win" id="toc-sec-win" class="nav-link" data-scroll-target="#sec-win"><span class="toc-section-number">3.1.3</span>  Windows</a></li>
   </ul></li>
   <li><a href="#流れ" id="toc-流れ" class="nav-link" data-scroll-target="#流れ"><span class="toc-section-number">3.2</span>  流れ</a></li>
   <li><a href="#雛形作成" id="toc-雛形作成" class="nav-link" data-scroll-target="#雛形作成"><span class="toc-section-number">3.3</span>  雛形作成</a></li>
@@ -171,7 +172,7 @@ ul.task-list li input[type="checkbox"] {
 <p>ここでは、QGIS Plugin を作成する全体の流れを説明します。</p>
 <section id="必須" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="必須"><span class="header-section-number">3.1</span> 必須</h2>
-<p>QGIS プラグイン開発には、Python プログラミングの知識、テキストエディタとターミナルでの作業能力が必要です。</p>
+<p>QGIS には、プラグイン開発に必要なスクリプト等が全て含まれていますが、なぜかそのままでは使えない形式になっています。</p>
 <p>また、GUI などのフレームワークには PyQt を使っています。似たようなものに PySide がありますが、</p>
 <table class="table">
 <colgroup>
@@ -221,11 +222,28 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
-<section id="macos" class="level3" data-number="3.1.1">
-<h3 data-number="3.1.1" class="anchored" data-anchor-id="macos"><span class="header-section-number">3.1.1</span> macOS</h3>
+<section id="バージョンについて" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="バージョンについて"><span class="header-section-number">3.1.1</span> バージョンについて</h3>
+<p>macOS でも Windows でも、複数のバージョンの QGISをインストールすることが可能です。</p>
+<p>この場合、注意点があります。</p>
+<p>QGIS バージョンごとに、Python もインストールされます。</p>
+<p>追加 Python モジュール等も、QGIS バージョンごとにバラバラに追加されます。</p>
+<p>QGIS プラグインは、複数のバージョンの QGIS が共通して同じソースを読み込みます。</p>
+</section>
+<section id="macos" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="macos"><span class="header-section-number">3.1.2</span> macOS</h3>
 <p>pyrcc と pylupdate は、一行目を書き換える必要があります。</p>
-<p><code>#!/Applications/QGIS-LTR.app/Contents/MacOS/QGIS</code></p>
-<p>を</p>
+<p>QGIS のバージョンによって、両者のファイルの中身が少し異なりますが、どちらもテキストファイルです。</p>
+<p><code>/Applications/QGIS-LTR.app/Contents/MacOS/bin/pyrcc5</code> が、以下のような場合</p>
+<pre><code>#!/Applications/QGIS-LTR.app/Contents/MacOS/QGIS
+# -*- coding: utf-8 -*-
+import re
+import sys
+from PyQt5.pyrcc_main import main
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(main())</code></pre>
+<p>第一行目を</p>
 <p><code>#!/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3</code></p>
 <p>と書き換えます。</p>
 <p>上記のようではなく、<code>/Applications/QGIS-LTR.app/Contents/MacOS/bin/pyrcc5</code> が</p>
@@ -234,16 +252,22 @@ exec '`dirname $0`/python3.9' -m PyQt5.pyrcc_main ${1+"$@"}</code></pre>
 <p>であれば、</p>
 <pre><code>#!/bin/sh
 exec '/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3.9' -m PyQt5.pyrcc_main ${1+"$@"}</code></pre>
-<p>あるいは、<code>/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5</code> は</p>
-<pre><code>#!/bin/sh
-exec '`dirname $0`/python3.9' -m PyQt5.pylupdate_main ${1+"$@"}</code></pre>
-<p>であれば</p>
+<p><code>/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5</code> は</p>
+<pre><code>#!/Applications/QGIS-LTR.app/Contents/MacOS/QGIS
+# -*- coding: utf-8 -*-
+import re
+import sys
+from PyQt5.pylupdate_main import main
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(main())</code></pre>
+<p>または</p>
 <pre><code>#!/bin/sh
 exec '/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3.9' -m PyQt5.pylupdate_main ${1+"$@"}</code></pre>
 <p>と書き換えます。</p>
 </section>
-<section id="sec-win" class="level3" data-number="3.1.2">
-<h3 data-number="3.1.2" class="anchored" data-anchor-id="sec-win"><span class="header-section-number">3.1.2</span> Windows</h3>
+<section id="sec-win" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="sec-win"><span class="header-section-number">3.1.3</span> Windows</h3>
 <p>Windows では、pyrcc と pylupdate を使う直前に qt5 や python3 の環境を読み込ませることで解決できます。</p>
 <p>スタンドアロン版の場合</p>
 <pre><code>&gt; call C:\Program Files\QGIS 3.38.2\bin\o4w_env.bat

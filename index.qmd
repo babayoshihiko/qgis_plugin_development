@@ -5,9 +5,15 @@ jupyter: python3
 
 このサイトでは、QGIS の Plugin を開発するための情報を提供しています。
 
-
 * https://docs.qgis.org/3.34/ja/docs/pyqgis_developer_cookbook/plugins/index.html
 * GIS実習オープン教材
   * https://gis-oer.github.io/gitbook/book/materials/python/10/10.html
   * https://gis-oer.github.io/gitbook/book/materials/python/11/11.html
 
+QGIS プラグイン開発には、Python プログラミングの知識、テキストエディタとターミナルでの作業能力が必要です。
+
+本サイトでは、テキストエディタや Python 統合開発環境で Python プログラミングができる方を対象としています。
+
+Python プログラミングについては、詳しくは解説しません。
+
+一方で、QGIS 固有の Python 環境及び PyQt について解説します。

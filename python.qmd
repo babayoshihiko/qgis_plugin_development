@@ -7,15 +7,27 @@ QGIS をインストールすると、QGIS 内に Python がインストール�
 
 ## Python の位置 {#sec-python-folder}
 
-- Windows スタンドアロン 
-- Windows OSGeo4W C:\\OSGeo4W\\bin\\python3 または C:\\OSGeo4W\\apps\\Python312\\python3 
+- Windows スタンドアロン C:\\Program Files\\QGIS 3.34.2\\apps\\Python39\\python3.exe 
+- Windows OSGeo4W C:\\OSGeo4W\\bin\\python3 または C:\\OSGeo4W\\apps\\Python312\\python3.exe 
 - macOS: /Applications/QGIS-LTR.app/Contents/MacOS/bin/python3
+
+## モジュールの位置
+
+- Windows スタンドアロン C:\\Program Files\\QGIS 3.34.2\\apps\\Python39\\Lib\\site-packages
+- Windows OSGeo4W C:\\OSGeo4W\\bin\\python3 または C:\\OSGeo4W\\apps\\Python312\\Lib\\site-packages
+- macOS:  /Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/
+
+Python の解説書や解説サイトはたくさんありますが、自分の使っている Python がどれなのかを間違えると、機能しなくなります。
+
+ターミナルで使っている Python が、システムでインストールしたPython であれば、そこのモジュールを追加しても QGIS プラグインでは使うことはできません。
+
+QGIS の Python でモジュールを追加するには、python_module_manager という QGIS プラグインを使うと良いでしょう。
 
 ## MyPlugin.py
 
 プラグイン名を MyPlugin としたとすると、フォルダ内に `MyPlugin.py` という Python スクリプトができていると思います。
 
-ここに
+ここに処理を追加していくことでプラグインの機能が出来上がっていきます。
 
 ## ファイル管理
 

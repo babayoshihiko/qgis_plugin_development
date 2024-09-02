@@ -201,8 +201,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#sec-python-folder" id="toc-sec-python-folder" class="nav-link active" data-scroll-target="#sec-python-folder"><span class="toc-section-number">5.1</span>  Python の位置</a></li>
-  <li><a href="#myplugin.py" id="toc-myplugin.py" class="nav-link" data-scroll-target="#myplugin.py"><span class="toc-section-number">5.2</span>  MyPlugin.py</a></li>
-  <li><a href="#ファイル管理" id="toc-ファイル管理" class="nav-link" data-scroll-target="#ファイル管理"><span class="toc-section-number">5.3</span>  ファイル管理</a></li>
+  <li><a href="#モジュールの位置" id="toc-モジュールの位置" class="nav-link" data-scroll-target="#モジュールの位置"><span class="toc-section-number">5.2</span>  モジュールの位置</a></li>
+  <li><a href="#myplugin.py" id="toc-myplugin.py" class="nav-link" data-scroll-target="#myplugin.py"><span class="toc-section-number">5.3</span>  MyPlugin.py</a></li>
+  <li><a href="#ファイル管理" id="toc-ファイル管理" class="nav-link" data-scroll-target="#ファイル管理"><span class="toc-section-number">5.4</span>  ファイル管理</a></li>
   </ul>
 </nav>
     </div>
@@ -230,18 +231,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="sec-python-folder" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="sec-python-folder"><span class="header-section-number">5.1</span> Python の位置</h2>
 <ul>
-<li>Windows スタンドアロン</li>
-<li>Windows OSGeo4W C:\OSGeo4W\bin\python3 または C:\OSGeo4W\apps\Python312\python3</li>
+<li>Windows スタンドアロン C:\Program Files\QGIS 3.34.2\apps\Python39\python3.exe</li>
+<li>Windows OSGeo4W C:\OSGeo4W\bin\python3 または C:\OSGeo4W\apps\Python312\python3.exe</li>
 <li>macOS: /Applications/QGIS-LTR.app/Contents/MacOS/bin/python3</li>
 </ul>
 </section>
-<section id="myplugin.py" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="myplugin.py"><span class="header-section-number">5.2</span> MyPlugin.py</h2>
-<p>プラグイン名を MyPlugin としたとすると、フォルダ内に <code>MyPlugin.py</code> という Python スクリプトができていると思います。</p>
-<p>ここに</p>
+<section id="モジュールの位置" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="モジュールの位置"><span class="header-section-number">5.2</span> モジュールの位置</h2>
+<ul>
+<li>Windows スタンドアロン C:\Program Files\QGIS 3.34.2\apps\Python39\Lib\site-packages</li>
+<li>Windows OSGeo4W C:\OSGeo4W\bin\python3 または C:\OSGeo4W\apps\Python312\Lib\site-packages</li>
+<li>macOS: /Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/</li>
+</ul>
+<p>Python の解説書や解説サイトはたくさんありますが、自分の使っている Python がどれなのかを間違えると、機能しなくなります。</p>
+<p>ターミナルで使っている Python が、システムでインストールしたPython であれば、そこのモジュールを追加しても QGIS プラグインでは使うことはできません。</p>
+<p>QGIS の Python でモジュールを追加するには、python_module_manager という QGIS プラグインを使うと良いでしょう。</p>
 </section>
-<section id="ファイル管理" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="ファイル管理"><span class="header-section-number">5.3</span> ファイル管理</h2>
+<section id="myplugin.py" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="myplugin.py"><span class="header-section-number">5.3</span> MyPlugin.py</h2>
+<p>プラグイン名を MyPlugin としたとすると、フォルダ内に <code>MyPlugin.py</code> という Python スクリプトができていると思います。</p>
+<p>ここに処理を追加していくことでプラグインの機能が出来上がっていきます。</p>
+</section>
+<section id="ファイル管理" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="ファイル管理"><span class="header-section-number">5.4</span> ファイル管理</h2>
 <p>よく使う関数 (例: <code>getValue()</code>) などを、<code>MyPlugin.py</code> から独立したファイル (例: <code>Utils.py</code>) に保存するときがあります。</p>
 <p>この場合、<code>MyPlugin.py</code> の冒頭に</p>
 <div class="cell" data-execution_count="1">

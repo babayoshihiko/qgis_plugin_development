@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "QGIS Plugin 開発",
     "section": "",
-    "text": "このサイトでは、QGIS の Plugin を開発するための情報を提供しています。\n\nhttps://docs.qgis.org/3.34/ja/docs/pyqgis_developer_cookbook/plugins/index.html\nGIS実習オープン教材\n\nhttps://gis-oer.github.io/gitbook/book/materials/python/10/10.html\nhttps://gis-oer.github.io/gitbook/book/materials/python/11/11.html"
+    "text": "このサイトでは、QGIS の Plugin を開発するための情報を提供しています。\n\nhttps://docs.qgis.org/3.34/ja/docs/pyqgis_developer_cookbook/plugins/index.html\nGIS実習オープン教材\n\nhttps://gis-oer.github.io/gitbook/book/materials/python/10/10.html\nhttps://gis-oer.github.io/gitbook/book/materials/python/11/11.html\n\n\nQGIS プラグイン開発には、Python プログラミングの知識、テキストエディタとターミナルでの作業能力が必要です。\n本サイトでは、テキストエディタや Python 統合開発環境で Python プログラミングができる方を対象としています。\nPython プログラミングについては、詳しくは解説しません。\n一方で、QGIS 固有の Python 環境及び PyQt について解説します。"
   },
   {
     "objectID": "about.html#はじめに",
@@ -39,7 +39,7 @@
     "href": "flow.html#必須",
     "title": "3  一連の流れ",
     "section": "3.1 必須",
-    "text": "3.1 必須\nQGIS プラグイン開発には、Python プログラミングの知識、テキストエディタとターミナルでの作業能力が必要です。\nまた、GUI などのフレームワークには PyQt を使っています。似たようなものに PySide がありますが、\n\n\n\n\n\n\n\n\n\nアプリ\nmacOS\nWin\nOSGeo4W\n\n\n\n\nQGIS plugin\n/Users/username/Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins\n右に同じ\nC:\\Users\\username\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\default\\python\n\n\npython\n/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3\nC:\\Program Files\\apps\\Python39\\python3.exe\nC:\\OSGeo4W\\apps\\Python312\\python3.exe\n\n\npyrcc\n/Applications/QGIS-LTR.app/Contents/MacOS/bin/pyrcc5\nC:\\Program Files\\apps\\Python312\\Scripts\\pyrcc5.exe\nC:\\OSGeo4W\\apps\\Python39\\Scripts\\pyrcc5.exe\n\n\nDesigner\n/Applications/QGIS-LTR.app/Contents/MacOS/Designer.app\nC:\\Program Files\\apps\\Python312\\Scripts\\pylupdate5.exe\nC:\\OSGeo4W\\apps\\Python39\\Scripts\\pylupdate5.exe\n\n\nLinguist\n/Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/qt5_applications/Qt/bin/Linguist.app\nC:\\Program Files\\apps\\Qt5\\bin\\linguist.exe\nC:\\OSGeo4W\\apps\\Qt5\\bin\\linguist.exe\n\n\n\n\n3.1.1 macOS\npyrcc と pylupdate は、一行目を書き換える必要があります。\n#!/Applications/QGIS-LTR.app/Contents/MacOS/QGIS\nを\n#!/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3\nと書き換えます。\n上記のようではなく、/Applications/QGIS-LTR.app/Contents/MacOS/bin/pyrcc5 が\n#!/bin/sh\nexec '`dirname $0`/python3.9' -m PyQt5.pyrcc_main ${1+\"$@\"}\nであれば、\n#!/bin/sh\nexec '/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3.9' -m PyQt5.pyrcc_main ${1+\"$@\"}\nあるいは、/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 は\n#!/bin/sh\nexec '`dirname $0`/python3.9' -m PyQt5.pylupdate_main ${1+\"$@\"}\nであれば\n#!/bin/sh\nexec '/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3.9' -m PyQt5.pylupdate_main ${1+\"$@\"}\nと書き換えます。\n\n\n3.1.2 Windows\nWindows では、pyrcc と pylupdate を使う直前に qt5 や python3 の環境を読み込ませることで解決できます。\nスタンドアロン版の場合\n> call C:\\Program Files\\QGIS 3.38.2\\bin\\o4w_env.bat\n> C:\\Program Files\\QGIS 3.38.2\\apps\\Python312\\Scripts\\pyrcc5.exe -o resources.py resources.qrc\nOSGeo4W 版の場合\n> call C:\\OSGeo4W\\bin\\o4w_env.bat\n> C:\\OSGeo4W\\apps\\Python39\\Scripts\\pyrcc5.exe -o resources.py resources.qrc\nなお、PowerShell の場合、call を無くします。\nPS C:\\Users\\username> C:\\OSGeo4W\\bin\\o4w_env.bat\nPS C:\\Users\\username> C:\\OSGeo4W\\apps\\Python39\\Scripts\\pyrcc5.exe -o resources.py resources.qrc\nlinguist.exe と designer.exe は、そのままでは実行できません。C:\\OSGeo4W\\saga_gui.bat などを参考に、以下のファイルを作成します。\n\nC:\\OSGeo4W\\saga_gui.bat をコピーする\nC:\\OSGeo4W\\linguist_gui.bat という名前にする\nメモ帳で開き、二行目の ¥apps¥saga¥saga_gui.exe を ¥Qt5¥bin¥linguist.exe と書き換える\n\n同様の作業を designer についても行います。\nこれで、C:\\OSGeo4W\\linguist_gui.bat をダブルクリックすると Designer が立ち上がるようになります。"
+    "text": "3.1 必須\nQGIS には、プラグイン開発に必要なスクリプト等が全て含まれていますが、なぜかそのままでは使えない形式になっています。\nまた、GUI などのフレームワークには PyQt を使っています。似たようなものに PySide がありますが、\n\n\n\n\n\n\n\n\n\nアプリ\nmacOS\nWin\nOSGeo4W\n\n\n\n\nQGIS plugin\n/Users/username/Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins\n右に同じ\nC:\\Users\\username\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\default\\python\n\n\npython\n/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3\nC:\\Program Files\\apps\\Python39\\python3.exe\nC:\\OSGeo4W\\apps\\Python312\\python3.exe\n\n\npyrcc\n/Applications/QGIS-LTR.app/Contents/MacOS/bin/pyrcc5\nC:\\Program Files\\apps\\Python312\\Scripts\\pyrcc5.exe\nC:\\OSGeo4W\\apps\\Python39\\Scripts\\pyrcc5.exe\n\n\nDesigner\n/Applications/QGIS-LTR.app/Contents/MacOS/Designer.app\nC:\\Program Files\\apps\\Python312\\Scripts\\pylupdate5.exe\nC:\\OSGeo4W\\apps\\Python39\\Scripts\\pylupdate5.exe\n\n\nLinguist\n/Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/qt5_applications/Qt/bin/Linguist.app\nC:\\Program Files\\apps\\Qt5\\bin\\linguist.exe\nC:\\OSGeo4W\\apps\\Qt5\\bin\\linguist.exe\n\n\n\n\n3.1.1 バージョンについて\nmacOS でも Windows でも、複数のバージョンの QGISをインストールすることが可能です。\nこの場合、注意点があります。\nQGIS バージョンごとに、Python もインストールされます。\n追加 Python モジュール等も、QGIS バージョンごとにバラバラに追加されます。\nQGIS プラグインは、複数のバージョンの QGIS が共通して同じソースを読み込みます。\n\n\n3.1.2 macOS\npyrcc と pylupdate は、一行目を書き換える必要があります。\nQGIS のバージョンによって、両者のファイルの中身が少し異なりますが、どちらもテキストファイルです。\n/Applications/QGIS-LTR.app/Contents/MacOS/bin/pyrcc5 が、以下のような場合\n#!/Applications/QGIS-LTR.app/Contents/MacOS/QGIS\n# -*- coding: utf-8 -*-\nimport re\nimport sys\nfrom PyQt5.pyrcc_main import main\nif __name__ == '__main__':\n    sys.argv[0] = re.sub(r'(-script\\.pyw|\\.exe)?$', '', sys.argv[0])\n    sys.exit(main())\n第一行目を\n#!/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3\nと書き換えます。\n上記のようではなく、/Applications/QGIS-LTR.app/Contents/MacOS/bin/pyrcc5 が\n#!/bin/sh\nexec '`dirname $0`/python3.9' -m PyQt5.pyrcc_main ${1+\"$@\"}\nであれば、\n#!/bin/sh\nexec '/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3.9' -m PyQt5.pyrcc_main ${1+\"$@\"}\n/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 は\n#!/Applications/QGIS-LTR.app/Contents/MacOS/QGIS\n# -*- coding: utf-8 -*-\nimport re\nimport sys\nfrom PyQt5.pylupdate_main import main\nif __name__ == '__main__':\n    sys.argv[0] = re.sub(r'(-script\\.pyw|\\.exe)?$', '', sys.argv[0])\n    sys.exit(main())\nまたは\n#!/bin/sh\nexec '/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3.9' -m PyQt5.pylupdate_main ${1+\"$@\"}\nと書き換えます。\n\n\n3.1.3 Windows\nWindows では、pyrcc と pylupdate を使う直前に qt5 や python3 の環境を読み込ませることで解決できます。\nスタンドアロン版の場合\n> call C:\\Program Files\\QGIS 3.38.2\\bin\\o4w_env.bat\n> C:\\Program Files\\QGIS 3.38.2\\apps\\Python312\\Scripts\\pyrcc5.exe -o resources.py resources.qrc\nOSGeo4W 版の場合\n> call C:\\OSGeo4W\\bin\\o4w_env.bat\n> C:\\OSGeo4W\\apps\\Python39\\Scripts\\pyrcc5.exe -o resources.py resources.qrc\nなお、PowerShell の場合、call を無くします。\nPS C:\\Users\\username> C:\\OSGeo4W\\bin\\o4w_env.bat\nPS C:\\Users\\username> C:\\OSGeo4W\\apps\\Python39\\Scripts\\pyrcc5.exe -o resources.py resources.qrc\nlinguist.exe と designer.exe は、そのままでは実行できません。C:\\OSGeo4W\\saga_gui.bat などを参考に、以下のファイルを作成します。\n\nC:\\OSGeo4W\\saga_gui.bat をコピーする\nC:\\OSGeo4W\\linguist_gui.bat という名前にする\nメモ帳で開き、二行目の ¥apps¥saga¥saga_gui.exe を ¥Qt5¥bin¥linguist.exe と書き換える\n\n同様の作業を designer についても行います。\nこれで、C:\\OSGeo4W\\linguist_gui.bat をダブルクリックすると Designer が立ち上がるようになります。"
   },
   {
     "objectID": "flow.html#流れ",
@@ -67,7 +67,7 @@
     "href": "designer.html#designer",
     "title": "4  デザイン",
     "section": "4.1 Designer",
-    "text": "4.1 Designer\nQGIS のフォルダ内には、Designer というアプリケーションが入っています。\nWindows の場合、Section 3.1.2 であらかじめ作っておいた designer_gui.bat をダブルクリックします。\nWindows OSGeo4W: C:\\OSGeo4W\\bin\\designer_gui.bat\nmacOS: /Applications/QGIS-LTR.app/Contents/MacOS/Designer.app"
+    "text": "4.1 Designer\nQGIS のフォルダ内には、Designer というアプリケーションが入っています。\nWindows の場合、Section 3.1.3 であらかじめ作っておいた designer_gui.bat をダブルクリックします。\nWindows OSGeo4W: C:\\OSGeo4W\\bin\\designer_gui.bat\nmacOS: /Applications/QGIS-LTR.app/Contents/MacOS/Designer.app"
   },
   {
     "objectID": "designer.html#よく使う-widget",
@@ -88,21 +88,28 @@
     "href": "python.html#sec-python-folder",
     "title": "5  Python 環境",
     "section": "5.1 Python の位置",
-    "text": "5.1 Python の位置\n\nWindows スタンドアロン\nWindows OSGeo4W C:\\OSGeo4W\\bin\\python3 または C:\\OSGeo4W\\apps\\Python312\\python3\nmacOS: /Applications/QGIS-LTR.app/Contents/MacOS/bin/python3"
+    "text": "5.1 Python の位置\n\nWindows スタンドアロン C:\\Program Files\\QGIS 3.34.2\\apps\\Python39\\python3.exe\nWindows OSGeo4W C:\\OSGeo4W\\bin\\python3 または C:\\OSGeo4W\\apps\\Python312\\python3.exe\nmacOS: /Applications/QGIS-LTR.app/Contents/MacOS/bin/python3"
+  },
+  {
+    "objectID": "python.html#モジュールの位置",
+    "href": "python.html#モジュールの位置",
+    "title": "5  Python 環境",
+    "section": "5.2 モジュールの位置",
+    "text": "5.2 モジュールの位置\n\nWindows スタンドアロン C:\\Program Files\\QGIS 3.34.2\\apps\\Python39\\Lib\\site-packages\nWindows OSGeo4W C:\\OSGeo4W\\bin\\python3 または C:\\OSGeo4W\\apps\\Python312\\Lib\\site-packages\nmacOS: /Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/\n\nPython の解説書や解説サイトはたくさんありますが、自分の使っている Python がどれなのかを間違えると、機能しなくなります。\nターミナルで使っている Python が、システムでインストールしたPython であれば、そこのモジュールを追加しても QGIS プラグインでは使うことはできません。\nQGIS の Python でモジュールを追加するには、python_module_manager という QGIS プラグインを使うと良いでしょう。"
   },
   {
     "objectID": "python.html#myplugin.py",
     "href": "python.html#myplugin.py",
     "title": "5  Python 環境",
-    "section": "5.2 MyPlugin.py",
-    "text": "5.2 MyPlugin.py\nプラグイン名を MyPlugin としたとすると、フォルダ内に MyPlugin.py という Python スクリプトができていると思います。\nここに"
+    "section": "5.3 MyPlugin.py",
+    "text": "5.3 MyPlugin.py\nプラグイン名を MyPlugin としたとすると、フォルダ内に MyPlugin.py という Python スクリプトができていると思います。\nここに処理を追加していくことでプラグインの機能が出来上がっていきます。"
   },
   {
     "objectID": "python.html#ファイル管理",
     "href": "python.html#ファイル管理",
     "title": "5  Python 環境",
-    "section": "5.3 ファイル管理",
-    "text": "5.3 ファイル管理\nよく使う関数 (例: getValue()) などを、MyPlugin.py から独立したファイル (例: Utils.py) に保存するときがあります。\nこの場合、MyPlugin.py の冒頭に\n\nfrom . import Utils\n\n...\n\n\nUtils.getValue()\n\nと記述することで、Utils 内の関数などが使えるようになります。"
+    "section": "5.4 ファイル管理",
+    "text": "5.4 ファイル管理\nよく使う関数 (例: getValue()) などを、MyPlugin.py から独立したファイル (例: Utils.py) に保存するときがあります。\nこの場合、MyPlugin.py の冒頭に\n\nfrom . import Utils\n\n...\n\n\nUtils.getValue()\n\nと記述することで、Utils 内の関数などが使えるようになります。"
   },
   {
     "objectID": "editor.html",
