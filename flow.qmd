@@ -7,6 +7,10 @@ jupyter: python3
 
 ## 必須
 
+QGIS プラグイン開発には、Python プログラミングの知識、テキストエディタとターミナルでの作業能力が必要です。
+
+また、GUI などのフレームワークには PyQt を使っています。似たようなものに PySide がありますが、
+
 | アプリ | macOS | Win | OSGeo4W |
 | ------ | ---- | ---- | ------- |
 | QGIS plugin | /Users/username/Library/Application\ Support/QGIS/QGIS3/profiles/default/python/plugins  | 右に同じ | C:\\Users\\username\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\default\\python\plugins |

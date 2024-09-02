@@ -15,7 +15,7 @@ QGIS のフォルダ内には、Designer というアプリケーションが入
 
 Windows の場合、@sec-win であらかじめ作っておいた designer_gui.bat をダブルクリックします。
 
-Windows OSGeo4W: C:\OSGeo4W\bin\designer_gui.bat
+Windows OSGeo4W: C:\\OSGeo4W\\bin\\designer_gui.bat
 
 macOS: /Applications/QGIS-LTR.app/Contents/MacOS/Designer.app
 
@@ -29,9 +29,15 @@ GUI を設計する際には、Widget という言葉をよく使います。Wid
 
 lineEdit: 一行だけのシンプルなテキスト入力
 
+![QLineEdit](img/windows-lineedit.png)
+
 textEdit: 複数行で、太字なども可能
 
 plainTextEdit: 複数行で、太字などのないシンプルなテキスト入力
+
+QLineEdit についての参照 (バージョン６のものになります)。
+
+[https://www.riverbankcomputing.com/static/Docs/PyQt6/api/qtwidgets/qlineedit.html](https://www.riverbankcomputing.com/static/Docs/PyQt6/api/qtwidgets/qlineedit.html)
 
 ### Label
 
@@ -41,15 +47,80 @@ Label は、LineEdit などと異なり、ユーザが入力するのではな�
 
 List は、１列複数行で表示する表です。ListView と ListWidget がありますが、ListWidget の方が簡単に扱うことができます。
 
+![QListWidget](img/windows-listview.png)
+
+ListWidget は、複数のテキストを縦に並べて表示をし、一つを選択するように使います。ComboBox と異なる点としては、選択肢を表示する視認性と、複数選択が可能になります。
+
+Designer では、List Widget を、ウィンドウにドラッグして配置します。この際、objectName を `myListWidget_1` などに設定します。この objectName は、 Python の中でも使います。ノートなどにメモしておきましょう。
+
+List Widget のあるウィンドウが選択された状態で右クリック (macOS だとダブルタップや Cmd + クリック) をし、Layout が `Lay Out in a Grid` などになっていると、ウィンドウの大きさを変えた際に自動的に伸び縮みします。
+
+各列は item と呼ばれます。Python で item を追加するには、`MyPlugin.py` の `def run(self):` を
+
+
+```{python}
+#| eval: FALSE
+    def run(self):
+        ....
+        self.dlg.myListWidget_1.addItem('日本')
+        self.dlg.myListWidget_1.addItem('イギリス')
+
+```
+
+注: Dialogue でなく Dock の場合、`dlg` を `dockwidget`  に変えて、`self.dockwidget.myListWidget_1.addItem('日本')` とします。以下も同様です。
+
 デフォルトでは、１列ずつしか選択することができません。以下のコードで、複数行選択が可能になります。
 
 ```{python}
 #| eval: FALSE
 from qgis.PyQt.QtWidgets import QAbstractItemView
-self.dlg.myListWidget.setSelectionMode(
-    QAbstractItemView.ExtendedSelection
-)
+
+...
+
+    def run(self):
+        ....
+        self.myListWidget_1.setSelectionMode(
+            QAbstractItemView.ExtendedSelection
+        )
 ```
+
+QListWidget についての参照 (バージョン６のものになります)。
+
+[https://www.riverbankcomputing.com/static/Docs/PyQt6/api/qtwidgets/qlistwidget.html](https://www.riverbankcomputing.com/static/Docs/PyQt6/api/qtwidgets/qlistwidget.html)
+
+### ボタン
+
+ボタンは、QPushButton と言います。
+
+![QPushButton](img/windows-pushbutton.png)
+
+「押された時の処理」の書き方を学んでいきましょう。
+
+まず、Designer では `Pushu Button` をウィンドウにドラッグし、obectName を `myPushButton_1` などのように設定します。
+
+`MyPlugin.py` に、以下のようなコードを追加します。
+
+```{python}
+#| eval: FALSE
+...
+
+    def run(self):
+        ....
+        self.dlg.myPushButton_1.clicked.connect(self.ChangeButtonLabel)
+```
+
+さらに、`ChangeButtonLabel()` というメソッドを、同じファイルの地番下に追加します。
+
+```{python}
+#| eval: FALSE
+...
+    def ChangeButtonLabel(self):
+        self.dlg.myPushButton_1.setText('押された')
+```
+
+これで、ボタンを押されると、ボタンが「押された」と表示されます。
+
+[https://www.riverbankcomputing.com/static/Docs/PyQt6/api/qtwidgets/qpushbutton.html](https://www.riverbankcomputing.com/static/Docs/PyQt6/api/qtwidgets/qpushbutton.html)
 
 ## レイアウト
 
@@ -57,6 +128,12 @@ self.dlg.myListWidget.setSelectionMode(
 
 多くの場合は、Layouts の Vertical Layout と Horizontal Layout を組み合わせてレイアウトを完成させます。
 
-ListWidget などを並べて、幅を可変にするには、Lay Out Horizontally in Splitter を使います。この Widget はデフォルトでは使えないグレーアウトの状態です。並べたい二つの ListWidget を選択した状態で、このボタンが有効になります。
-
 最後に、ウィンドウ全体を選択した状態で右クリックします。コンテキストメニューの一番下、Lay out > Lay Out in a Grid を選択します。
+
+### 上寄せ
+
+ウィンドウのサイズが変わっても、LineEdit などを中央にせずに上寄せのままにしたい場合、Vertical Spacer を使います。
+
+### 
+
+ListWidget などを並べて、幅を可変にするには、Lay Out Horizontally in Splitter を使います。この Widget はデフォルトでは使えないグレーアウトの状態です。並べたい二つの ListWidget を選択した状態で、このボタンが有効になります。

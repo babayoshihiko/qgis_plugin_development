@@ -1,0 +1,29 @@
+project:
+  type: book
+
+book:
+  title: "QGIS Plugin 開発"
+  chapters:
+    - index.qmd
+    - about.qmd
+    - flow.qmd
+    - designer.qmd
+    - python.qmd
+    - editor.qmd
+    - m18n.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc-depth: 3
+    toc-expand: 3
+  pdf:
+    documentclass: bxjsbook
+    classoption: xelatex,ja=standard
+    default-image-extension: png
+    include-in-header:  preamble.tex
+    include-after-body: after_body.tex
+    papersize: A4
+
+editor: source
+
