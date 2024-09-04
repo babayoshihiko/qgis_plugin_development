@@ -7,3 +7,32 @@ jupyter: python3
 
 Git はソース管理ツールで、GitHub が最もよく使われているリポジトリです。
 
+GitHub アカウントはすでに持っていることが前提です。
+
+GitHub でソースを管理する場合は、以下の手順が良いでしょう。
+
+1. GitHub 上で `MyPlugin` リポジトリを作成
+2. ローカル PC でクローン作成
+3. 開発した `MyPlugin` のファイルをコピー
+4. ファイルを add
+5. ファイルを commit
+6. ファイルを push
+
+これで、
+
+## ラインセンス
+
+GitHub で公開するにあたり、ソースコードのライセンスを決めましょう。
+
+公開される QGIS プラグインは、GPL バージョン 2 以降のライセンスである必要があります。
+
+[https://blog.qgis.org/2016/05/29/licensing-requirements-for-qgis-plugins/](https://blog.qgis.org/2016/05/29/licensing-requirements-for-qgis-plugins/)
+
+## ソースコードに DOI を付与
+
+Digital Object Identifier (DOI) は、インターネット上の著作物のユニークな ID です。
+
+作ったプラグイン（プログラミング）の成果を、
+
+
+

@@ -282,13 +282,17 @@ exec '/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3.9' -m PyQt5.pylupdat
 <p>pyrcc.exe と pylupdate.exe を使う直前に qt5 や python3 の環境を読み込ませることで解決できます。</p>
 <p>スタンドアロン版の場合</p>
 <pre><code>&gt; call C:\Program Files\QGIS 3.38.2\bin\o4w_env.bat
+&gt; cd C:\Users\username\AppData\Roaming\QGIS\QGIS3\profiles\python\plugins\MyPlugin
 &gt; C:\Program Files\QGIS 3.38.2\apps\Python312\Scripts\pyrcc5.exe -o resources.py resources.qrc</code></pre>
 <p>OSGeo4W 版の場合</p>
 <pre><code>&gt; call C:\OSGeo4W\bin\o4w_env.bat
+&gt; cd C:\Users\username\AppData\Roaming\QGIS\QGIS3\profiles\python\plugins\MyPlugin
 &gt; C:\OSGeo4W\apps\Python39\Scripts\pyrcc5.exe -o resources.py resources.qrc</code></pre>
 <p>なお、PowerShell の場合、call を無くします。</p>
-<pre><code>PS C:\Users\username&gt; C:\OSGeo4W\bin\o4w_env.bat
-PS C:\Users\username&gt; C:\OSGeo4W\apps\Python39\Scripts\pyrcc5.exe -o resources.py resources.qrc</code></pre>
+<pre><code>PS C:\Users\username&gt; cd C:\OSGeo4W\bin\
+PS C:\OSGeo4W\bin&gt; ./o4w_env.bat
+PS C:\Users\username&gt; cd C:\Users\username\AppData\Roaming\QGIS\QGIS3\profiles\python\plugins\MyPlugin
+PS C:\Users\username\AppData\Roaming\QGIS\QGIS3\profiles\python\plugins\MyPlugin&gt; C:\OSGeo4W\apps\Python39\Scripts\pyrcc5.exe -o resources.py resources.qrc</code></pre>
 <p>linguist.exe と designer.exe は、そのままでは実行できません。C:\OSGeo4W\saga_gui.bat などを参考に、以下のファイルを作成します。</p>
 <ol type="1">
 <li>C:\OSGeo4W\saga_gui.bat をコピーする</li>

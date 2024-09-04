@@ -59,7 +59,7 @@ List Widget のあるウィンドウが選択された状態で右クリック (
 
 
 ```{python}
-#| eval: FALSE
+#| eval: false
     def run(self):
         ....
         self.dlg.myListWidget_1.addItem('日本')
@@ -72,7 +72,7 @@ List Widget のあるウィンドウが選択された状態で右クリック (
 デフォルトでは、１列ずつしか選択することができません。以下のコードで、複数行選択が可能になります。
 
 ```{python}
-#| eval: FALSE
+#| eval: false
 from qgis.PyQt.QtWidgets import QAbstractItemView
 
 ...
@@ -101,7 +101,7 @@ QListWidget についての参照 (バージョン６のものになります)�
 `MyPlugin.py` に、以下のようなコードを追加します。
 
 ```{python}
-#| eval: FALSE
+#| eval: false
 ...
 
     def run(self):
@@ -112,7 +112,7 @@ QListWidget についての参照 (バージョン６のものになります)�
 さらに、`ChangeButtonLabel()` というメソッドを、同じファイルの地番下に追加します。
 
 ```{python}
-#| eval: FALSE
+#| eval: false
 ...
     def ChangeButtonLabel(self):
         self.dlg.myPushButton_1.setText('押された')
@@ -147,7 +147,7 @@ QGIS のプラグインウィンドウは、メインウィンドウに隠れる
 QGIS プラグインの場合
 
 ```{python}
-#| eval: FALSE
+#| eval: false
 def run(self):
     ...
     self.dlg.setWindowFlags(Qt.WindowStaysOnTopHint)
@@ -161,7 +161,8 @@ Designer を使い、`MyPlugin_2.ui` を作成します。
 
 テキストエディタで、`MyPlugin_2.py` を作成します。
 
-```
+```{python}
+#| eval: false
 \# -*- coding: utf-8 -*-
 
 from qgis.PyQt import QtGui, QtWidgets, uic
@@ -179,8 +180,9 @@ class MyPlugin_2 (QtWidgets.QDialog, FORM_CLASS):
 
 `MyPlugin.py` も編集します。
 
-```
-class jpdata:
+```{python}
+#| eval: false
+class MyPlugin:
     """QGIS Plugin Implementation."""
 
     def __init__(self, iface):
