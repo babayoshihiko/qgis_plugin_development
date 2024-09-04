@@ -134,6 +134,60 @@ QListWidget についての参照 (バージョン６のものになります)�
 
 ウィンドウのサイズが変わっても、LineEdit などを中央にせずに上寄せのままにしたい場合、Vertical Spacer を使います。
 
-### 
+### 可変 splitter
 
 ListWidget などを並べて、幅を可変にするには、Lay Out Horizontally in Splitter を使います。この Widget はデフォルトでは使えないグレーアウトの状態です。並べたい二つの ListWidget を選択した状態で、このボタンが有効になります。
+
+## モーダル
+
+QGIS のプラグインウィンドウは、メインウィンドウに隠れることがあります。
+
+メインウィンドウよりも常に上にあるウィンドウをモーダルウィンドウと言います。
+
+QGIS プラグインの場合
+
+```{python}
+#| eval: FALSE
+def run(self):
+    ...
+    self.dlg.setWindowFlags(Qt.WindowStaysOnTopHint)
+```
+
+とします。
+
+## 子ウィンドウ
+
+Designer を使い、`MyPlugin_2.ui` を作成します。
+
+テキストエディタで、`MyPlugin_2.py` を作成します。
+
+```
+\# -*- coding: utf-8 -*-
+
+from qgis.PyQt import QtGui, QtWidgets, uic
+import os
+
+FORM_CLASS, _ = uic.loadUiType(os.path.join(
+    os.path.dirname(__file__), 'MyPlugin_2.ui'))
+
+class MyPlugin_2 (QtWidgets.QDialog, FORM_CLASS):
+    def __init__(self, parent = None):
+        """Constructor."""
+        super(MyPlugin_2, self).__init__(parent)
+        self.setupUi(self)
+```
+
+`MyPlugin.py` も編集します。
+
+```
+class jpdata:
+    """QGIS Plugin Implementation."""
+
+    def __init__(self, iface):
+        ...
+        self.MyPlugin_2 = MyPlugin_2()
+```
+
+この後、子ウィンドウを登場させたいところに、`self.MyPlugin_2.show()` をすることで、ウィンドウが登場します。
+
+また、子ウィンドウをモーダルにしたい場合は、前の節をご参照ください。

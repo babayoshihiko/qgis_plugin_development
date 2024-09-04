@@ -103,6 +103,7 @@ pyrcc.exe と pylupdate.exe を使う直前に qt5 や python3 の環境を読�
 
 ```
 > call C:\Program Files\QGIS 3.38.2\bin\o4w_env.bat
+> cd C:\Users\username\AppData\Roaming\QGIS\QGIS3\profiles\python\plugins\MyPlugin
 > C:\Program Files\QGIS 3.38.2\apps\Python312\Scripts\pyrcc5.exe -o resources.py resources.qrc
 ```
 
@@ -110,14 +111,17 @@ OSGeo4W 版の場合
 
 ```
 > call C:\OSGeo4W\bin\o4w_env.bat
+> cd C:\Users\username\AppData\Roaming\QGIS\QGIS3\profiles\python\plugins\MyPlugin
 > C:\OSGeo4W\apps\Python39\Scripts\pyrcc5.exe -o resources.py resources.qrc
 ```
 
 なお、PowerShell の場合、call を無くします。
 
 ```
-PS C:\Users\username> C:\OSGeo4W\bin\o4w_env.bat
-PS C:\Users\username> C:\OSGeo4W\apps\Python39\Scripts\pyrcc5.exe -o resources.py resources.qrc
+PS C:\Users\username> cd C:\OSGeo4W\bin\
+PS C:\OSGeo4W\bin> ./o4w_env.bat
+PS C:\Users\username> cd C:\Users\username\AppData\Roaming\QGIS\QGIS3\profiles\python\plugins\MyPlugin
+PS C:\Users\username\AppData\Roaming\QGIS\QGIS3\profiles\python\plugins\MyPlugin> C:\OSGeo4W\apps\Python39\Scripts\pyrcc5.exe -o resources.py resources.qrc
 ```
 
 linguist.exe と designer.exe は、そのままでは実行できません。C:\\OSGeo4W\\saga_gui.bat などを参考に、以下のファイルを作成します。

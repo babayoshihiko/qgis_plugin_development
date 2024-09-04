@@ -191,6 +191,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="./m18n.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">多言語化</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./git.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Git</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./publish.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">公開</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -211,8 +221,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#レイアウト" id="toc-レイアウト" class="nav-link" data-scroll-target="#レイアウト"><span class="toc-section-number">4.3</span>  レイアウト</a>
   <ul class="collapse">
   <li><a href="#上寄せ" id="toc-上寄せ" class="nav-link" data-scroll-target="#上寄せ"><span class="toc-section-number">4.3.1</span>  上寄せ</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="toc-section-number">4.3.2</span>  </a></li>
+  <li><a href="#可変-splitter" id="toc-可変-splitter" class="nav-link" data-scroll-target="#可変-splitter"><span class="toc-section-number">4.3.2</span>  可変 splitter</a></li>
   </ul></li>
+  <li><a href="#モーダル" id="toc-モーダル" class="nav-link" data-scroll-target="#モーダル"><span class="toc-section-number">4.4</span>  モーダル</a></li>
+  <li><a href="#子ウィンドウ" id="toc-子ウィンドウ" class="nav-link" data-scroll-target="#子ウィンドウ"><span class="toc-section-number">4.5</span>  子ウィンドウ</a></li>
   </ul>
 </nav>
     </div>
@@ -341,12 +353,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 data-number="4.3.1" class="anchored" data-anchor-id="上寄せ"><span class="header-section-number">4.3.1</span> 上寄せ</h3>
 <p>ウィンドウのサイズが変わっても、LineEdit などを中央にせずに上寄せのままにしたい場合、Vertical Spacer を使います。</p>
 </section>
-<section id="section" class="level3" data-number="4.3.2">
-<h3 data-number="4.3.2" class="anchored" data-anchor-id="section"><span class="header-section-number">4.3.2</span> </h3>
+<section id="可変-splitter" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="可変-splitter"><span class="header-section-number">4.3.2</span> 可変 splitter</h3>
 <p>ListWidget などを並べて、幅を可変にするには、Lay Out Horizontally in Splitter を使います。この Widget はデフォルトでは使えないグレーアウトの状態です。並べたい二つの ListWidget を選択した状態で、このボタンが有効になります。</p>
-
-
 </section>
+</section>
+<section id="モーダル" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="モーダル"><span class="header-section-number">4.4</span> モーダル</h2>
+<p>QGIS のプラグインウィンドウは、メインウィンドウに隠れることがあります。</p>
+<p>メインウィンドウよりも常に上にあるウィンドウをモーダルウィンドウと言います。</p>
+<p>QGIS プラグインの場合</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run(<span class="va">self</span>):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.dlg.setWindowFlags(Qt.WindowStaysOnTopHint)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>とします。</p>
+</section>
+<section id="子ウィンドウ" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="子ウィンドウ"><span class="header-section-number">4.5</span> 子ウィンドウ</h2>
+<p>Designer を使い、<code>MyPlugin_2.ui</code> を作成します。</p>
+<p>テキストエディタで、<code>MyPlugin_2.py</code> を作成します。</p>
+<pre><code>\# -*- coding: utf-8 -*-
+
+from qgis.PyQt import QtGui, QtWidgets, uic
+import os
+
+FORM_CLASS, _ = uic.loadUiType(os.path.join(
+    os.path.dirname(__file__), 'MyPlugin_2.ui'))
+
+class MyPlugin_2 (QtWidgets.QDialog, FORM_CLASS):
+    def __init__(self, parent = None):
+        """Constructor."""
+        super(MyPlugin_2, self).__init__(parent)
+        self.setupUi(self)</code></pre>
+<p><code>MyPlugin.py</code> も編集します。</p>
+<pre><code>class jpdata:
+    """QGIS Plugin Implementation."""
+
+    def __init__(self, iface):
+        ...
+        self.MyPlugin_2 = MyPlugin_2()</code></pre>
+<p>この後、子ウィンドウを登場させたいところに、<code>self.MyPlugin_2.show()</code> をすることで、ウィンドウが登場します。</p>
+<p>また、子ウィンドウをモーダルにしたい場合は、前の節をご参照ください。</p>
+
+
 </section>
 
 </main> <!-- /main -->
