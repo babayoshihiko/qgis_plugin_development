@@ -95,7 +95,7 @@
     "href": "designer.html#子ウィンドウ",
     "title": "4  デザイン",
     "section": "4.5 子ウィンドウ",
-    "text": "4.5 子ウィンドウ\nDesigner を使い、MyPlugin_2.ui を作成します。\nテキストエディタで、MyPlugin_2.py を作成します。\n\n\\# -*- coding: utf-8 -*-\n\nfrom qgis.PyQt import QtGui, QtWidgets, uic\nimport os\n\nFORM_CLASS, _ = uic.loadUiType(os.path.join(\n    os.path.dirname(__file__), 'MyPlugin_2.ui'))\n\nclass MyPlugin_2 (QtWidgets.QDialog, FORM_CLASS):\n    def __init__(self, parent = None):\n        \"\"\"Constructor.\"\"\"\n        super(MyPlugin_2, self).__init__(parent)\n        self.setupUi(self)\n\nMyPlugin.py も編集します。\n\nclass jpdata:\n    \"\"\"QGIS Plugin Implementation.\"\"\"\n\n    def __init__(self, iface):\n        ...\n        self.MyPlugin_2 = MyPlugin_2()\n\nこの後、子ウィンドウを登場させたいところに、self.MyPlugin_2.show() をすることで、ウィンドウが登場します。\nまた、子ウィンドウをモーダルにしたい場合は、前の節をご参照ください。"
+    "text": "4.5 子ウィンドウ\nDesigner を使い、MyPlugin_2.ui を作成します。\nテキストエディタで、MyPlugin_2.py を作成します。\n\n\\# -*- coding: utf-8 -*-\n\nfrom qgis.PyQt import QtGui, QtWidgets, uic\nimport os\n\nFORM_CLASS, _ = uic.loadUiType(os.path.join(\n    os.path.dirname(__file__), 'MyPlugin_2.ui'))\n\nclass MyPlugin_2 (QtWidgets.QDialog, FORM_CLASS):\n    def __init__(self, parent = None):\n        \"\"\"Constructor.\"\"\"\n        super(MyPlugin_2, self).__init__(parent)\n        self.setupUi(self)\n\nMyPlugin.py も編集します。\n\nclass MyPlugin:\n    \"\"\"QGIS Plugin Implementation.\"\"\"\n\n    def __init__(self, iface):\n        ...\n        self.MyPlugin_2 = MyPlugin_2()\n\nこの後、子ウィンドウを登場させたいところに、self.MyPlugin_2.show() をすることで、ウィンドウが登場します。\nまた、子ウィンドウをモーダルにしたい場合は、前の節をご参照ください。"
   },
   {
     "objectID": "python.html#sec-python-folder",
@@ -158,21 +158,35 @@
     "href": "m18n.html#ts-ファイルを作る",
     "title": "7  多言語化",
     "section": "7.4 .ts ファイルを作る",
-    "text": "7.4 .ts ファイルを作る\n次に、MyPlugin_ja.ts ファイルを作ります。これには、pylupdate という Python スクリプトが必要です。\n場所がわからない場合は、Section 5.1 を参照。\nmacOS: /Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5\nWindows の場合はコンソールなどで以下のように入力します。\nmacOS の QGIS は、/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 が入っていますが、そのままでは使うことができません。一行目を以下のように書き換えましょう。\n#!/Applications/QGIS-LTR.app/Contents/MacOS/QGIS\nを\n#!/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3\nと書き換えます。\n#| eval: FALSE\ncd /path/to/MyPlugin\n/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 -noobsolete i18n/jpdata.pro\nこれで、i18n フォルダ内に MyPlugin_ja.ts が作成されます。すでにある場合は、更新されます。"
+    "text": "7.4 .ts ファイルを作る\n次に、MyPlugin_ja.ts ファイルを作ります。これには、pylupdate という Python スクリプトが必要です。\n場所がわからない場合は、Section 5.1 を参照。\nmacOS: /Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5\nWindows の場合はコンソールなどで以下のように入力します。\nmacOS の QGIS は、/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 が入っていますが、そのままでは使うことができません。一行目を以下のように書き換えましょう。\n#!/Applications/QGIS-LTR.app/Contents/MacOS/QGIS\nを\n#!/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3\nと書き換えます。\n#| eval: false\ncd /path/to/MyPlugin\n/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 -noobsolete i18n/jpdata.pro\nこれで、i18n フォルダ内に MyPlugin_ja.ts が作成されます。すでにある場合は、更新されます。"
   },
   {
     "objectID": "m18n.html#linguist",
     "href": "m18n.html#linguist",
     "title": "7  多言語化",
     "section": "7.5 Linguist",
-    "text": "7.5 Linguist\ni18n フォルダ内の MyPlugin_ja.ts ファイルを、Linguist で開きます。\nmacOS: /Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/qt5_applications/Qt/bin/Linguist.app\nWindows OSGeo4W インストールの場合\n#| eval: FALSE\nC:\\OSGeo4W\\bin\\python3\nmacOS の場合 (QGIS-LTR.app は、名前が異なる場合があります。)\n#| eval: FALSE\nopen /Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/qt5_applications/Qt/bin/Linguist.app"
+    "text": "7.5 Linguist\ni18n フォルダ内の MyPlugin_ja.ts ファイルを、Linguist で開きます。\nmacOS: /Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/qt5_applications/Qt/bin/Linguist.app\nWindows OSGeo4W インストールの場合\n#| eval: false\nC:\\OSGeo4W\\bin\\python3\nmacOS の場合 (QGIS-LTR.app は、名前が異なる場合があります。)\n#| eval: false\nopen /Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/qt5_applications/Qt/bin/Linguist.app"
   },
   {
     "objectID": "git.html#github",
     "href": "git.html#github",
     "title": "8  Git",
     "section": "8.1 GitHub",
-    "text": "8.1 GitHub\nGit はソース管理ツールで、GitHub が最もよく使われているリポジトリです。"
+    "text": "8.1 GitHub\nGit はソース管理ツールで、GitHub が最もよく使われているリポジトリです。\nGitHub アカウントはすでに持っていることが前提です。\nGitHub でソースを管理する場合は、以下の手順が良いでしょう。\n\nGitHub 上で MyPlugin リポジトリを作成\nローカル PC でクローン作成\n開発した MyPlugin のファイルをコピー\nファイルを add\nファイルを commit\nファイルを push\n\nこれで、"
+  },
+  {
+    "objectID": "git.html#ラインセンス",
+    "href": "git.html#ラインセンス",
+    "title": "8  Git",
+    "section": "8.2 ラインセンス",
+    "text": "8.2 ラインセンス\nGitHub で公開するにあたり、ソースコードのライセンスを決めましょう。\n公開される QGIS プラグインは、GPL バージョン 2 以降のライセンスである必要があります。\nhttps://blog.qgis.org/2016/05/29/licensing-requirements-for-qgis-plugins/"
+  },
+  {
+    "objectID": "git.html#ソースコードに-doi-を付与",
+    "href": "git.html#ソースコードに-doi-を付与",
+    "title": "8  Git",
+    "section": "8.3 ソースコードに DOI を付与",
+    "text": "8.3 ソースコードに DOI を付与\nDigital Object Identifier (DOI) は、インターネット上の著作物のユニークな ID です。\n作ったプラグイン（プログラミング）の成果を、"
   },
   {
     "objectID": "publish.html#osgeo-アカウント",
