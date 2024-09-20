@@ -8,3 +8,5 @@ Python のソースコードを書くには、テキストエディタまたは�
 QGIS の Python コンソールにも、Python ソースを書くためのエディタがあります。
 
 ![QGIS Python](img/editor-1.png)
+
+

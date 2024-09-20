@@ -39,7 +39,7 @@
     "href": "flow.html#必須",
     "title": "3  一連の流れ",
     "section": "3.1 必須",
-    "text": "3.1 必須\nQGIS には、プラグイン開発に必要なスクリプト等が全て含まれていますが、なぜかそのままでは使えない形式になっています。\nまた、GUI などのフレームワークには PyQt を使っています。似たようなものに PySide がありますが、\n\n\n\n\n\n\n\n\n\nアプリ\nmacOS\nWin\nOSGeo4W\n\n\n\n\nQGIS plugin\n/Users/username/Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins\n右に同じ\nC:\\Users\\username\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\default\\python\n\n\npython\n/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3\nC:\\Program Files\\apps\\Python39\\python3.exe\nC:\\OSGeo4W\\apps\\Python312\\python3.exe\n\n\npyrcc\n/Applications/QGIS-LTR.app/Contents/MacOS/bin/pyrcc5\nC:\\Program Files\\apps\\Python312\\Scripts\\pyrcc5.exe\nC:\\OSGeo4W\\apps\\Python39\\Scripts\\pyrcc5.exe\n\n\nDesigner\n/Applications/QGIS-LTR.app/Contents/MacOS/Designer.app\nC:\\Program Files\\apps\\Python312\\Scripts\\pylupdate5.exe\nC:\\OSGeo4W\\apps\\Python39\\Scripts\\pylupdate5.exe\n\n\nLinguist\n/Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/qt5_applications/Qt/bin/Linguist.app\nC:\\Program Files\\apps\\Qt5\\bin\\linguist.exe\nC:\\OSGeo4W\\apps\\Qt5\\bin\\linguist.exe\n\n\n\n\n3.1.1 バージョンについて\nmacOS でも Windows でも、複数のバージョンの QGISをインストールすることが可能です。\nこの場合、注意点があります。\nQGIS バージョンごとに、Python もインストールされます。\n追加 Python モジュール等も、QGIS バージョンごとにバラバラに追加されます。\nQGIS プラグインは、複数のバージョンの QGIS が共通して同じソースを読み込みます。\n\n\n3.1.2 macOS\nLinguist と Designer はそのまま使うことができますが、pyrcc と pylupdate はそのままでは使うことができません。\nQGIS のバージョンによって、両者のファイルの中身が少し異なりますが、どちらもテキストファイルです。\n/Applications/QGIS-LTR.app/Contents/MacOS/bin/pyrcc5 が、以下のような場合\n#!/Applications/QGIS-LTR.app/Contents/MacOS/QGIS\n# -*- coding: utf-8 -*-\nimport re\nimport sys\nfrom PyQt5.pyrcc_main import main\nif __name__ == '__main__':\n    sys.argv[0] = re.sub(r'(-script\\.pyw|\\.exe)?$', '', sys.argv[0])\n    sys.exit(main())\n第一行目を\n#!/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3\nと書き換えます。\n上記のようではなく、/Applications/QGIS-LTR.app/Contents/MacOS/bin/pyrcc5 が\n#!/bin/sh\nexec '`dirname $0`/python3.9' -m PyQt5.pyrcc_main ${1+\"$@\"}\nであれば、\n#!/bin/sh\nexec '/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3.9' -m PyQt5.pyrcc_main ${1+\"$@\"}\n/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 は\n#!/Applications/QGIS-LTR.app/Contents/MacOS/QGIS\n# -*- coding: utf-8 -*-\nimport re\nimport sys\nfrom PyQt5.pylupdate_main import main\nif __name__ == '__main__':\n    sys.argv[0] = re.sub(r'(-script\\.pyw|\\.exe)?$', '', sys.argv[0])\n    sys.exit(main())\nまたは\n#!/bin/sh\nexec '/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3.9' -m PyQt5.pylupdate_main ${1+\"$@\"}\nと書き換えます。\n\n\n3.1.3 Windows\nWindows では、linguist.exe と designer.exe、pyrcc.exe と pylupdate.exe はそのままでは使うことができません。\npyrcc.exe と pylupdate.exe を使う直前に qt5 や python3 の環境を読み込ませることで解決できます。\nスタンドアロン版の場合\n> call C:\\Program Files\\QGIS 3.38.2\\bin\\o4w_env.bat\n> cd C:\\Users\\username\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\python\\plugins\\MyPlugin\n> C:\\Program Files\\QGIS 3.38.2\\apps\\Python312\\Scripts\\pyrcc5.exe -o resources.py resources.qrc\nOSGeo4W 版の場合\n> call C:\\OSGeo4W\\bin\\o4w_env.bat\n> cd C:\\Users\\username\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\python\\plugins\\MyPlugin\n> C:\\OSGeo4W\\apps\\Python39\\Scripts\\pyrcc5.exe -o resources.py resources.qrc\nなお、PowerShell の場合、call を無くします。\nPS C:\\Users\\username> cd C:\\OSGeo4W\\bin\\\nPS C:\\OSGeo4W\\bin> ./o4w_env.bat\nPS C:\\Users\\username> cd C:\\Users\\username\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\python\\plugins\\MyPlugin\nPS C:\\Users\\username\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\python\\plugins\\MyPlugin> C:\\OSGeo4W\\apps\\Python39\\Scripts\\pyrcc5.exe -o resources.py resources.qrc\nlinguist.exe と designer.exe は、そのままでは実行できません。C:\\OSGeo4W\\saga_gui.bat などを参考に、以下のファイルを作成します。\n\nC:\\OSGeo4W\\saga_gui.bat をコピーする\nC:\\OSGeo4W\\linguist_gui.bat という名前にする\nメモ帳で開き、二行目の ¥apps¥saga¥saga_gui.exe を ¥Qt5¥bin¥linguist.exe と書き換える\n\n同様の作業を designer についても行います。\nこれで、C:\\OSGeo4W\\linguist_gui.bat をダブルクリックすると Designer が立ち上がるようになります。"
+    "text": "3.1 必須\nQGIS には、プラグイン開発に必要なスクリプト等が全て含まれていますが、なぜかそのままでは使えない形式になっています。\nまた、GUI などのフレームワークには PyQt を使っています。Python で Qt を使うには、PySide というものもあります。インターネットで検索すると、PySide の情報の場合もあるので、確認するようにしましょう。\n\n\n\n\n\n\n\n\n\nアプリ\nmacOS\nWin\nOSGeo4W\n\n\n\n\nQGIS plugin\n/Users/username/Library/Application Support/QGIS/QGIS3/profiles/default/python/plugins\n右に同じ\nC:\\Users\\username\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\default\\python\n\n\npython\n/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3\nC:\\Program Files\\apps\\Python39\\python3.exe\nC:\\OSGeo4W\\apps\\Python312\\python3.exe\n\n\npyrcc\n/Applications/QGIS-LTR.app/Contents/MacOS/bin/pyrcc5\nC:\\Program Files\\apps\\Python312\\Scripts\\pyrcc5.exe\nC:\\OSGeo4W\\apps\\Python39\\Scripts\\pyrcc5.exe\n\n\npylupdate\n/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5\nC:\\Program Files\\apps\\Python312\\Scripts\\pylupdate5.exe\nC:\\OSGeo4W\\apps\\Python39\\Scripts\\pylupdate5.exe\n\n\nDesigner\n/Applications/QGIS-LTR.app/Contents/MacOS/Designer.app\nC:\\Program Files\\apps\\Qt5\\bin\\designer.exe\nC:\\OSGeo4W\\apps\\Qt5\\bin\\designer.exe\n\n\nLinguist\n/Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/qt5_applications/Qt/bin/Linguist.app\nC:\\Program Files\\apps\\Qt5\\bin\\linguist.exe\nC:\\OSGeo4W\\apps\\Qt5\\bin\\linguist.exe\n\n\n\nQGIS plugin の保存場所は、上記のところでない場合、QGIS の\n設定 > ユーザープロファイル > アクティブなプロファイルフォルダを開く\nから確認することができます。\n\n3.1.1 バージョンについて\nmacOS でも Windows でも、複数のバージョンの QGISをインストールすることが可能です。\nこの場合、注意点があります。\nQGIS バージョンごとに、Python もインストールされます。\n追加 Python モジュール等も、QGIS バージョンごとにバラバラに追加されます。\nQGIS プラグインは、複数のバージョンの QGIS が共通して同じソースを読み込みます。\n\n\n3.1.2 macOS\nLinguist と Designer はそのまま使うことができますが、pyrcc と pylupdate はそのままでは使うことができません。\nQGIS のバージョンによって、両者のファイルの中身が少し異なりますが、どちらもテキストファイルです。\n/Applications/QGIS-LTR.app/Contents/MacOS/bin/pyrcc5 が、以下のような場合\n#!/Applications/QGIS-LTR.app/Contents/MacOS/QGIS\n# -*- coding: utf-8 -*-\nimport re\nimport sys\nfrom PyQt5.pyrcc_main import main\nif __name__ == '__main__':\n    sys.argv[0] = re.sub(r'(-script\\.pyw|\\.exe)?$', '', sys.argv[0])\n    sys.exit(main())\n第一行目を\n#!/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3\nと書き換えます。\n上記のようではなく、/Applications/QGIS-LTR.app/Contents/MacOS/bin/pyrcc5 が\n#!/bin/sh\nexec '`dirname $0`/python3.9' -m PyQt5.pyrcc_main ${1+\"$@\"}\nであれば、\n#!/bin/sh\nexec '/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3.9' -m PyQt5.pyrcc_main ${1+\"$@\"}\n/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 は\n#!/Applications/QGIS-LTR.app/Contents/MacOS/QGIS\n# -*- coding: utf-8 -*-\nimport re\nimport sys\nfrom PyQt5.pylupdate_main import main\nif __name__ == '__main__':\n    sys.argv[0] = re.sub(r'(-script\\.pyw|\\.exe)?$', '', sys.argv[0])\n    sys.exit(main())\nまたは\n#!/bin/sh\nexec '/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3.9' -m PyQt5.pylupdate_main ${1+\"$@\"}\nと書き換えます。\n\n\n3.1.3 Windows\nWindows では、linguist.exe と designer.exe、pyrcc.exe と pylupdate.exe はそのままでは使うことができません。\npyrcc.exe と pylupdate.exe を使う直前に qt5 や python3 の環境を読み込ませることで解決できます。\nスタンドアロン版の場合\n> call C:\\Program Files\\QGIS 3.38.2\\bin\\o4w_env.bat\n> cd C:\\Users\\username\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\python\\plugins\\MyPlugin\n> C:\\Program Files\\QGIS 3.38.2\\apps\\Python312\\Scripts\\pyrcc5.exe -o resources.py resources.qrc\nOSGeo4W 版の場合\n> call C:\\OSGeo4W\\bin\\o4w_env.bat\n> cd C:\\Users\\username\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\python\\plugins\\MyPlugin\n> C:\\OSGeo4W\\apps\\Python39\\Scripts\\pyrcc5.exe -o resources.py resources.qrc\nなお、PowerShell の場合、call を無くします。\nPS C:\\Users\\username> cd C:\\OSGeo4W\\bin\\\nPS C:\\OSGeo4W\\bin> ./o4w_env.bat\nPS C:\\Users\\username> cd C:\\Users\\username\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\python\\plugins\\MyPlugin\nPS C:\\Users\\username\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\python\\plugins\\MyPlugin> C:\\OSGeo4W\\apps\\Python39\\Scripts\\pyrcc5.exe -o resources.py resources.qrc\nlinguist.exe と designer.exe は、そのままでは実行できません。C:\\OSGeo4W\\saga_gui.bat などを参考に、以下のファイルを作成します。\n\nC:\\OSGeo4W\\saga_gui.bat をコピーする\nC:\\OSGeo4W\\linguist_gui.bat という名前にする\nメモ帳で開き、二行目の ¥apps¥saga¥saga_gui.exe を ¥Qt5¥bin¥linguist.exe と書き換える\n\n同様の作業を designer についても行います。\nこれで、C:\\OSGeo4W\\linguist_gui.bat をダブルクリックすると Designer が立ち上がるようになります。"
   },
   {
     "objectID": "flow.html#流れ",
@@ -60,7 +60,7 @@
     "href": "flow.html#resouces.py-の作成",
     "title": "3  一連の流れ",
     "section": "3.4 resouces.py の作成",
-    "text": "3.4 resouces.py の作成\nMyPlugin 内に、resouces.py ファイルが作成されないことがあります。これがないと、プラグインとして認識されません。(Windows で o4w_env.bat を読み込んだ後などだと、パスが通っているので resouces.py まで作成してくれます。)\nresources.qrc があることを確認します。\nmacOS の場合\n/Applications/QGIS-LTR.app/Contents/MacOS/bin/pyrcc5 -o resources.py resources.qrc\nWindows スタンドアロン版の場合\n> call C:\\Program Files\\QGIS 3.38.2\\bin\\o4w_env.bat\n> C:\\Program Files\\apps\\Python312\\Scripts\\pyrcc5.exe -o resources.py resources.qrc\nOSGeo4W 版の場合\n> call C:\\OSGeo4W\\bin\\o4w_env.bat\n> C:\\OSGeo4W\\apps\\Python39\\Scripts\\pyrcc5.exe -o resources.py resources.qrc\nなお、PowerShell の場合、call をなしで実行します。\nPS > C:\\OSGeo4W\\bin\\o4w_env.bat\nPS > C:\\OSGeo4W\\apps\\Python39\\Scripts\\pyrcc5.exe -o resources.py resources.qrc\nこれで QGIS Plugin としては完成です。\nQGIS を立ち上げて、プラグイン > プラグインの管理とインストール から確認してみましょう。"
+    "text": "3.4 resouces.py の作成\nMyPlugin 内に、resouces.py ファイルが作成されないことがあります。これがないと、プラグインとして認識されません。(Windows で o4w_env.bat を読み込んだ後などだと、パスが通っているので resouces.py まで作成してくれます。)\nresources.qrc があることを確認します。\nmacOS の場合\n/Applications/QGIS-LTR.app/Contents/MacOS/bin/pyrcc5 -o resources.py resources.qrc\nWindows スタンドアロン版の場合\n> call C:\\Program Files\\QGIS 3.38.2\\bin\\o4w_env.bat\n> C:\\Program Files\\apps\\Python312\\Scripts\\pyrcc5.exe -o resources.py resources.qrc\nOSGeo4W 版の場合\n> call C:\\OSGeo4W\\bin\\o4w_env.bat\n> C:\\OSGeo4W\\apps\\Python39\\Scripts\\pyrcc5.exe -o resources.py resources.qrc\nなお、PowerShell の場合、call をなしで実行します。\nPS > cd C:\\OSGeo4W\\bin\\\nPS C:\\OSGeo4W\\bin\\> .\\o4w_env.bat\nPS C:\\OSGeo4W\\bin\\> C:\\OSGeo4W\\apps\\Python39\\Scripts\\pyrcc5.exe -o resources.py resources.qrc\nこれで QGIS Plugin としては完成です。\nQGIS を立ち上げて、プラグイン > プラグインの管理とインストール から確認してみましょう。\n\n3.4.1 Processing\nPlugin Builder は、Processing の場合、resources.qrc を作成してくれません。このため、自分で作成しましょう。\n<RCC>\n    <qresource prefix=\"/plugins/MyPlugin\" >\n        <file>icon.png</file>\n    </qresource>\n</RCC>\nまた、icon.png も必要になります。こちらも作成するか、他のプラグインからコピーしましょう。\nここまで準備して、pyrcc を実行します。"
   },
   {
     "objectID": "designer.html#designer",
@@ -126,80 +126,87 @@
     "text": "5.4 ファイル管理\nよく使う関数 (例: getValue()) などを、MyPlugin.py から独立したファイル (例: Utils.py) に保存するときがあります。\nこの場合、MyPlugin.py の冒頭に\n\nfrom . import Utils\n\n...\n\n\nUtils.getValue()\n\nと記述することで、Utils 内の関数などが使えるようになります。"
   },
   {
+    "objectID": "pyqt.html",
+    "href": "pyqt.html",
+    "title": "6  PyQt",
+    "section": "",
+    "text": "Qt (キュート) は、Linux, macOS, Windows などでアプリケーション開発を行う開発フレームワークです。\nプログラミング言語としては、C++ 言語向けとなっています。C++ 向けのレファレンスは、以下の通り。\nhttps://doc.qt.io/qt-6/reference-overview.html\nQt は、Python にも拡張されています。ただし、Python サポートは、二種類あります。イギリスの Riverbank Computing 社が開発した PyQt と、Qt Company が開発した PySide です。PySide は Qt for Python とも言います。\nQGIS が使用しているのは、PyQt です。検索すると PySide が引っかかることが多いので、要注意です。"
+  },
+  {
     "objectID": "editor.html",
     "href": "editor.html",
-    "title": "6  開発環境",
+    "title": "7  開発環境",
     "section": "",
     "text": "Python のソースコードを書くには、テキストエディタまたは統合開発環境があると便利です。\nQGIS の Python コンソールにも、Python ソースを書くためのエディタがあります。\n\n\n\nQGIS Python"
   },
   {
     "objectID": "m18n.html#流れ",
     "href": "m18n.html#流れ",
-    "title": "7  多言語化",
-    "section": "7.1 流れ",
-    "text": "7.1 流れ\n\n*.ui ファイルと MyPlugin.py などにメッセージを self.tr(‘Sample text’) などと記述\npylupdate で、Python スクリプト内の翻訳すべき言語を抽出 (MyPlugin.pro を作成)\nLinguist で MyPlugin_ja.ts ファイルを編集しリリース (MyPlugin_ja.ts が作成される)"
+    "title": "8  多言語化",
+    "section": "8.1 流れ",
+    "text": "8.1 流れ\n\n*.ui ファイルと MyPlugin.py などにメッセージを self.tr(‘Sample text’) などと記述\npylupdate で、Python スクリプト内の翻訳すべき言語を抽出 (MyPlugin.pro を作成)\nLinguist で MyPlugin_ja.ts ファイルを編集しリリース (MyPlugin_ja.ts が作成される)"
   },
   {
     "objectID": "m18n.html#sec-m18n-folder",
     "href": "m18n.html#sec-m18n-folder",
-    "title": "7  多言語化",
-    "section": "7.2 多言語化のフォルダ",
-    "text": "7.2 多言語化のフォルダ\nMyPlugin フォルダ内に、i18n というフォルダがあります。\ni18n フォルダ内には、af.ts というファイルがありますが、これはサンプルです。実際には不要なので、削除しましょう。"
+    "title": "8  多言語化",
+    "section": "8.2 多言語化のフォルダ",
+    "text": "8.2 多言語化のフォルダ\nMyPlugin フォルダ内に、i18n というフォルダがあります。\ni18n フォルダ内には、af.ts というファイルがありますが、これはサンプルです。実際には不要なので、削除しましょう。"
   },
   {
     "objectID": "m18n.html#pro-ファイルを作る",
     "href": "m18n.html#pro-ファイルを作る",
-    "title": "7  多言語化",
-    "section": "7.3 .pro ファイルを作る",
-    "text": "7.3 .pro ファイルを作る\nテキストエディタで、i18n フォルダ内に MyPlugin.pro というファイル名でファイルを作成します。\n中身は以下の通りです。適宜、自分のファイル名に合わせてください。\nFORMS = ../MyPlugin_dialog_base.ui\nSOURCES = ../MyPlugin_dialog.py ../MyPlugin.py ../MyPluginUtils.py\nTRANSLATIONS =  MyPlugin_ja.ts\nまた、Window から Dock に変えるなど、上記の中身に大きな変更が発生した場合も、.pro ファイルを作り直す必要があります。"
+    "title": "8  多言語化",
+    "section": "8.3 .pro ファイルを作る",
+    "text": "8.3 .pro ファイルを作る\nテキストエディタで、i18n フォルダ内に MyPlugin.pro というファイル名でファイルを作成します。\n中身は以下の通りです。適宜、自分のファイル名に合わせてください。\nFORMS = ../MyPlugin_dialog_base.ui\nSOURCES = ../MyPlugin_dialog.py ../MyPlugin.py ../MyPluginUtils.py\nTRANSLATIONS =  MyPlugin_ja.ts\nまた、Window から Dock に変えるなど、上記の中身に大きな変更が発生した場合も、.pro ファイルを作り直す必要があります。"
   },
   {
     "objectID": "m18n.html#ts-ファイルを作る",
     "href": "m18n.html#ts-ファイルを作る",
-    "title": "7  多言語化",
-    "section": "7.4 .ts ファイルを作る",
-    "text": "7.4 .ts ファイルを作る\n次に、MyPlugin_ja.ts ファイルを作ります。これには、pylupdate という Python スクリプトが必要です。\n場所がわからない場合は、Section 5.1 を参照。\nmacOS: /Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5\nWindows の場合はコンソールなどで以下のように入力します。\nmacOS の QGIS は、/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 が入っていますが、そのままでは使うことができません。一行目を以下のように書き換えましょう。\n#!/Applications/QGIS-LTR.app/Contents/MacOS/QGIS\nを\n#!/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3\nと書き換えます。\n#| eval: false\ncd /path/to/MyPlugin\n/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 -noobsolete i18n/jpdata.pro\nこれで、i18n フォルダ内に MyPlugin_ja.ts が作成されます。すでにある場合は、更新されます。"
+    "title": "8  多言語化",
+    "section": "8.4 .ts ファイルを作る",
+    "text": "8.4 .ts ファイルを作る\n次に、MyPlugin_ja.ts ファイルを作ります。これには、pylupdate という Python スクリプトが必要です。\n場所がわからない場合は、Section 5.1 を参照。\nmacOS: /Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5\nWindows の場合はコンソールなどで以下のように入力します。\nmacOS の QGIS は、/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 が入っていますが、そのままでは使うことができません。一行目を以下のように書き換えましょう。\n#!/Applications/QGIS-LTR.app/Contents/MacOS/QGIS\nを\n#!/Applications/QGIS-LTR.app/Contents/MacOS/bin/python3\nと書き換えます。\n#| eval: false\ncd /path/to/MyPlugin\n/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 -noobsolete i18n/jpdata.pro\nこれで、i18n フォルダ内に MyPlugin_ja.ts が作成されます。すでにある場合は、更新されます。"
   },
   {
     "objectID": "m18n.html#linguist",
     "href": "m18n.html#linguist",
-    "title": "7  多言語化",
-    "section": "7.5 Linguist",
-    "text": "7.5 Linguist\ni18n フォルダ内の MyPlugin_ja.ts ファイルを、Linguist で開きます。\nmacOS: /Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/qt5_applications/Qt/bin/Linguist.app\nWindows OSGeo4W インストールの場合\n#| eval: false\nC:\\OSGeo4W\\bin\\python3\nmacOS の場合 (QGIS-LTR.app は、名前が異なる場合があります。)\n#| eval: false\nopen /Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/qt5_applications/Qt/bin/Linguist.app"
+    "title": "8  多言語化",
+    "section": "8.5 Linguist",
+    "text": "8.5 Linguist\ni18n フォルダ内の MyPlugin_ja.ts ファイルを、Linguist で開きます。\nmacOS: /Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/qt5_applications/Qt/bin/Linguist.app\nWindows OSGeo4W インストールの場合\n#| eval: false\nC:\\OSGeo4W\\bin\\python3\nmacOS の場合 (QGIS-LTR.app は、名前が異なる場合があります。)\n#| eval: false\nopen /Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/qt5_applications/Qt/bin/Linguist.app"
   },
   {
     "objectID": "git.html#github",
     "href": "git.html#github",
-    "title": "8  Git",
-    "section": "8.1 GitHub",
-    "text": "8.1 GitHub\nGit はソース管理ツールで、GitHub が最もよく使われているリポジトリです。\nGitHub アカウントはすでに持っていることが前提です。\nGitHub でソースを管理する場合は、以下の手順が良いでしょう。\n\nGitHub 上で MyPlugin リポジトリを作成\nローカル PC でクローン作成\n開発した MyPlugin のファイルをコピー\nファイルを add\nファイルを commit\nファイルを push\n\nこれで、"
+    "title": "9  Git",
+    "section": "9.1 GitHub",
+    "text": "9.1 GitHub\nGit はソース管理ツールで、GitHub が最もよく使われているリポジトリです。\nGitHub アカウントはすでに持っていることが前提です。\nGitHub でソースを管理する場合は、以下の手順が良いでしょう。\n\nGitHub 上で MyPlugin リポジトリを作成\nローカル PC でクローン作成\n開発した MyPlugin のファイルをコピー\nファイルを add\nファイルを commit\nファイルを push\n\nこれで、"
   },
   {
     "objectID": "git.html#ラインセンス",
     "href": "git.html#ラインセンス",
-    "title": "8  Git",
-    "section": "8.2 ラインセンス",
-    "text": "8.2 ラインセンス\nGitHub で公開するにあたり、ソースコードのライセンスを決めましょう。\n公開される QGIS プラグインは、GPL バージョン 2 以降のライセンスである必要があります。\nhttps://blog.qgis.org/2016/05/29/licensing-requirements-for-qgis-plugins/"
+    "title": "9  Git",
+    "section": "9.2 ラインセンス",
+    "text": "9.2 ラインセンス\nGitHub で公開するにあたり、ソースコードのライセンスを決めましょう。\n公開される QGIS プラグインは、GPL バージョン 2 以降のライセンスである必要があります。\nhttps://blog.qgis.org/2016/05/29/licensing-requirements-for-qgis-plugins/"
   },
   {
     "objectID": "git.html#ソースコードに-doi-を付与",
     "href": "git.html#ソースコードに-doi-を付与",
-    "title": "8  Git",
-    "section": "8.3 ソースコードに DOI を付与",
-    "text": "8.3 ソースコードに DOI を付与\nDigital Object Identifier (DOI) は、インターネット上の著作物のユニークな ID です。\n作ったプラグイン（プログラミング）の成果を、"
+    "title": "9  Git",
+    "section": "9.3 ソースコードに DOI を付与",
+    "text": "9.3 ソースコードに DOI を付与\nDigital Object Identifier (DOI) は、インターネット上の著作物のユニークな ID です。\n作ったプラグイン（プログラミング）の成果を、"
   },
   {
     "objectID": "publish.html#osgeo-アカウント",
     "href": "publish.html#osgeo-アカウント",
-    "title": "9  公開",
-    "section": "9.1 OSGeo アカウント",
-    "text": "9.1 OSGeo アカウント\nOSGeo アカウントを作成します。\nhttps://www.osgeo.org/"
+    "title": "10  公開",
+    "section": "10.1 OSGeo アカウント",
+    "text": "10.1 OSGeo アカウント\nOSGeo アカウントを作成します。\nhttps://www.osgeo.org/"
   },
   {
     "objectID": "publish.html#公開",
     "href": "publish.html#公開",
-    "title": "9  公開",
-    "section": "9.2 公開",
-    "text": "9.2 公開\nQGIS Plugin サイトにログイン後、追加します。\nhttps://plugins.qgis.org/"
+    "title": "10  公開",
+    "section": "10.2 公開",
+    "text": "10.2 公開\nQGIS Plugin サイトにログイン後、追加します。\nhttps://plugins.qgis.org/"
   }
 ]

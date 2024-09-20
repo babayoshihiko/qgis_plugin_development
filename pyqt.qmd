@@ -1,0 +1,16 @@
+---
+title: "PyQt"
+jupyter: python3
+---
+
+Qt (キュート) は、Linux, macOS, Windows などでアプリケーション開発を行う開発フレームワークです。
+
+プログラミング言語としては、C++ 言語向けとなっています。C++ 向けのレファレンスは、以下の通り。
+
+[https://doc.qt.io/qt-6/reference-overview.html](https://doc.qt.io/qt-6/reference-overview.html)
+
+Qt は、Python にも拡張されています。ただし、Python サポートは、二種類あります。イギリスの Riverbank Computing 社が開発した PyQt と、Qt Company が開発した PySide です。PySide は Qt for Python とも言います。
+
+QGIS が使用しているのは、PyQt です。検索すると PySide 
+が引っかかることが多いので、要注意です。
+

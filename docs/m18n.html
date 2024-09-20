@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>QGIS Plugin 開発 - 7&nbsp; 多言語化</title>
+<title>QGIS Plugin 開発 - 8&nbsp; 多言語化</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -70,7 +70,7 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">多言語化</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">多言語化</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -120,22 +120,27 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./editor.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">開発環境</span></a>
+  <a href="./pyqt.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">PyQt</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./m18n.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">多言語化</span></a>
+  <a href="./editor.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">開発環境</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./git.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Git</span></a>
+  <a href="./m18n.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">多言語化</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./publish.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">公開</span></a>
+  <a href="./git.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Git</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./publish.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">公開</span></a>
   </div>
 </li>
     </ul>
@@ -147,11 +152,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#流れ" id="toc-流れ" class="nav-link active" data-scroll-target="#流れ"><span class="toc-section-number">7.1</span>  流れ</a></li>
-  <li><a href="#sec-m18n-folder" id="toc-sec-m18n-folder" class="nav-link" data-scroll-target="#sec-m18n-folder"><span class="toc-section-number">7.2</span>  多言語化のフォルダ</a></li>
-  <li><a href="#pro-ファイルを作る" id="toc-pro-ファイルを作る" class="nav-link" data-scroll-target="#pro-ファイルを作る"><span class="toc-section-number">7.3</span>  .pro ファイルを作る</a></li>
-  <li><a href="#ts-ファイルを作る" id="toc-ts-ファイルを作る" class="nav-link" data-scroll-target="#ts-ファイルを作る"><span class="toc-section-number">7.4</span>  .ts ファイルを作る</a></li>
-  <li><a href="#linguist" id="toc-linguist" class="nav-link" data-scroll-target="#linguist"><span class="toc-section-number">7.5</span>  Linguist</a></li>
+  <li><a href="#流れ" id="toc-流れ" class="nav-link active" data-scroll-target="#流れ"><span class="toc-section-number">8.1</span>  流れ</a></li>
+  <li><a href="#sec-m18n-folder" id="toc-sec-m18n-folder" class="nav-link" data-scroll-target="#sec-m18n-folder"><span class="toc-section-number">8.2</span>  多言語化のフォルダ</a></li>
+  <li><a href="#pro-ファイルを作る" id="toc-pro-ファイルを作る" class="nav-link" data-scroll-target="#pro-ファイルを作る"><span class="toc-section-number">8.3</span>  .pro ファイルを作る</a></li>
+  <li><a href="#ts-ファイルを作る" id="toc-ts-ファイルを作る" class="nav-link" data-scroll-target="#ts-ファイルを作る"><span class="toc-section-number">8.4</span>  .ts ファイルを作る</a></li>
+  <li><a href="#linguist" id="toc-linguist" class="nav-link" data-scroll-target="#linguist"><span class="toc-section-number">8.5</span>  Linguist</a></li>
   </ul>
 </nav>
     </div>
@@ -160,7 +165,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">多言語化</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">多言語化</span></h1>
 </div>
 
 
@@ -179,21 +184,21 @@ ul.task-list li input[type="checkbox"] {
 <p>最終的には、</p>
 <p>MyPlugin/i18n/MyPlugin_ja.qm</p>
 <p>というファイルを作ることが目的です。MyPlugin はプラグイン名、ja は言語コードになります。</p>
-<section id="流れ" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="流れ"><span class="header-section-number">7.1</span> 流れ</h2>
+<section id="流れ" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="流れ"><span class="header-section-number">8.1</span> 流れ</h2>
 <ol type="1">
 <li>*.ui ファイルと MyPlugin.py などにメッセージを self.tr(‘Sample text’) などと記述</li>
 <li>pylupdate で、Python スクリプト内の翻訳すべき言語を抽出 (MyPlugin.pro を作成)</li>
 <li>Linguist で MyPlugin_ja.ts ファイルを編集しリリース (MyPlugin_ja.ts が作成される)</li>
 </ol>
 </section>
-<section id="sec-m18n-folder" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="sec-m18n-folder"><span class="header-section-number">7.2</span> 多言語化のフォルダ</h2>
+<section id="sec-m18n-folder" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="sec-m18n-folder"><span class="header-section-number">8.2</span> 多言語化のフォルダ</h2>
 <p>MyPlugin フォルダ内に、i18n というフォルダがあります。</p>
 <p>i18n フォルダ内には、af.ts というファイルがありますが、これはサンプルです。実際には不要なので、削除しましょう。</p>
 </section>
-<section id="pro-ファイルを作る" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="pro-ファイルを作る"><span class="header-section-number">7.3</span> .pro ファイルを作る</h2>
+<section id="pro-ファイルを作る" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="pro-ファイルを作る"><span class="header-section-number">8.3</span> .pro ファイルを作る</h2>
 <p>テキストエディタで、i18n フォルダ内に MyPlugin.pro というファイル名でファイルを作成します。</p>
 <p>中身は以下の通りです。適宜、自分のファイル名に合わせてください。</p>
 <pre><code>FORMS = ../MyPlugin_dialog_base.ui
@@ -201,8 +206,8 @@ SOURCES = ../MyPlugin_dialog.py ../MyPlugin.py ../MyPluginUtils.py
 TRANSLATIONS =  MyPlugin_ja.ts</code></pre>
 <p>また、Window から Dock に変えるなど、上記の中身に大きな変更が発生した場合も、.pro ファイルを作り直す必要があります。</p>
 </section>
-<section id="ts-ファイルを作る" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="ts-ファイルを作る"><span class="header-section-number">7.4</span> .ts ファイルを作る</h2>
+<section id="ts-ファイルを作る" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="ts-ファイルを作る"><span class="header-section-number">8.4</span> .ts ファイルを作る</h2>
 <p>次に、MyPlugin_ja.ts ファイルを作ります。これには、pylupdate という Python スクリプトが必要です。</p>
 <p>場所がわからない場合は、<a href="python.html#sec-python-folder"><span>Section&nbsp;5.1</span></a> を参照。</p>
 <p>macOS: /Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5</p>
@@ -217,8 +222,8 @@ cd /path/to/MyPlugin
 /Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 -noobsolete i18n/jpdata.pro</code></pre>
 <p>これで、i18n フォルダ内に MyPlugin_ja.ts が作成されます。すでにある場合は、更新されます。</p>
 </section>
-<section id="linguist" class="level2" data-number="7.5">
-<h2 data-number="7.5" class="anchored" data-anchor-id="linguist"><span class="header-section-number">7.5</span> Linguist</h2>
+<section id="linguist" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="linguist"><span class="header-section-number">8.5</span> Linguist</h2>
 <p>i18n フォルダ内の MyPlugin_ja.ts ファイルを、Linguist で開きます。</p>
 <p>macOS: /Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/qt5_applications/Qt/bin/Linguist.app</p>
 <p>Windows OSGeo4W インストールの場合</p>
@@ -368,12 +373,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./editor.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">開発環境</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">開発環境</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./git.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Git</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Git</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

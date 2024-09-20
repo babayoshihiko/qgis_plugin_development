@@ -9,6 +9,7 @@ book:
     - flow.qmd
     - designer.qmd
     - python.qmd
+    - pyqt.qmd
     - editor.qmd
     - m18n.qmd
     - git.qmd
@@ -19,6 +20,7 @@ format:
     theme: cosmo
     toc-depth: 3
     toc-expand: 3
+    highlight-style: github
   pdf:
     documentclass: bxjsbook
     classoption: xelatex,ja=standard

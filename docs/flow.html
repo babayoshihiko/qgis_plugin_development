@@ -120,22 +120,27 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./editor.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">開発環境</span></a>
+  <a href="./pyqt.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">PyQt</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./m18n.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">多言語化</span></a>
+  <a href="./editor.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">開発環境</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./git.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Git</span></a>
+  <a href="./m18n.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">多言語化</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./publish.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">公開</span></a>
+  <a href="./git.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Git</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./publish.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">公開</span></a>
   </div>
 </li>
     </ul>
@@ -155,7 +160,10 @@ ul.task-list li input[type="checkbox"] {
   </ul></li>
   <li><a href="#流れ" id="toc-流れ" class="nav-link" data-scroll-target="#流れ"><span class="toc-section-number">3.2</span>  流れ</a></li>
   <li><a href="#雛形作成" id="toc-雛形作成" class="nav-link" data-scroll-target="#雛形作成"><span class="toc-section-number">3.3</span>  雛形作成</a></li>
-  <li><a href="#resouces.py-の作成" id="toc-resouces.py-の作成" class="nav-link" data-scroll-target="#resouces.py-の作成"><span class="toc-section-number">3.4</span>  resouces.py の作成</a></li>
+  <li><a href="#resouces.py-の作成" id="toc-resouces.py-の作成" class="nav-link" data-scroll-target="#resouces.py-の作成"><span class="toc-section-number">3.4</span>  resouces.py の作成</a>
+  <ul class="collapse">
+  <li><a href="#processing" id="toc-processing" class="nav-link" data-scroll-target="#processing"><span class="toc-section-number">3.4.1</span>  Processing</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -183,7 +191,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="必須" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="必須"><span class="header-section-number">3.1</span> 必須</h2>
 <p>QGIS には、プラグイン開発に必要なスクリプト等が全て含まれていますが、なぜかそのままでは使えない形式になっています。</p>
-<p>また、GUI などのフレームワークには PyQt を使っています。似たようなものに PySide がありますが、</p>
+<p>また、GUI などのフレームワークには PyQt を使っています。Python で Qt を使うには、PySide というものもあります。インターネットで検索すると、PySide の情報の場合もあるので、確認するようにしましょう。</p>
 <table class="table">
 <colgroup>
 <col style="width: 28%">
@@ -219,12 +227,18 @@ ul.task-list li input[type="checkbox"] {
 <td>C:\OSGeo4W\apps\Python39\Scripts\pyrcc5.exe</td>
 </tr>
 <tr class="even">
-<td>Designer</td>
-<td>/Applications/QGIS-LTR.app/Contents/MacOS/Designer.app</td>
+<td>pylupdate</td>
+<td>/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5</td>
 <td>C:\Program Files\apps\Python312\Scripts\pylupdate5.exe</td>
 <td>C:\OSGeo4W\apps\Python39\Scripts\pylupdate5.exe</td>
 </tr>
 <tr class="odd">
+<td>Designer</td>
+<td>/Applications/QGIS-LTR.app/Contents/MacOS/Designer.app</td>
+<td>C:\Program Files\apps\Qt5\bin\designer.exe</td>
+<td>C:\OSGeo4W\apps\Qt5\bin\designer.exe</td>
+</tr>
+<tr class="even">
 <td>Linguist</td>
 <td>/Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/qt5_applications/Qt/bin/Linguist.app</td>
 <td>C:\Program Files\apps\Qt5\bin\linguist.exe</td>
@@ -232,6 +246,9 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+<p>QGIS plugin の保存場所は、上記のところでない場合、QGIS の</p>
+<p>設定 &gt; ユーザープロファイル &gt; アクティブなプロファイルフォルダを開く</p>
+<p>から確認することができます。</p>
 <section id="バージョンについて" class="level3" data-number="3.1.1">
 <h3 data-number="3.1.1" class="anchored" data-anchor-id="バージョンについて"><span class="header-section-number">3.1.1</span> バージョンについて</h3>
 <p>macOS でも Windows でも、複数のバージョンの QGISをインストールすることが可能です。</p>
@@ -343,12 +360,24 @@ PS C:\Users\username\AppData\Roaming\QGIS\QGIS3\profiles\python\plugins\MyPlugin
 <pre><code>&gt; call C:\OSGeo4W\bin\o4w_env.bat
 &gt; C:\OSGeo4W\apps\Python39\Scripts\pyrcc5.exe -o resources.py resources.qrc</code></pre>
 <p>なお、PowerShell の場合、call をなしで実行します。</p>
-<pre><code>PS &gt; C:\OSGeo4W\bin\o4w_env.bat
-PS &gt; C:\OSGeo4W\apps\Python39\Scripts\pyrcc5.exe -o resources.py resources.qrc</code></pre>
+<pre><code>PS &gt; cd C:\OSGeo4W\bin\
+PS C:\OSGeo4W\bin\&gt; .\o4w_env.bat
+PS C:\OSGeo4W\bin\&gt; C:\OSGeo4W\apps\Python39\Scripts\pyrcc5.exe -o resources.py resources.qrc</code></pre>
 <p>これで QGIS Plugin としては完成です。</p>
 <p>QGIS を立ち上げて、プラグイン &gt; プラグインの管理とインストール から確認してみましょう。</p>
+<section id="processing" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="processing"><span class="header-section-number">3.4.1</span> Processing</h3>
+<p>Plugin Builder は、Processing の場合、<code>resources.qrc</code> を作成してくれません。このため、自分で作成しましょう。</p>
+<pre><code>&lt;RCC&gt;
+    &lt;qresource prefix="/plugins/MyPlugin" &gt;
+        &lt;file&gt;icon.png&lt;/file&gt;
+    &lt;/qresource&gt;
+&lt;/RCC&gt;</code></pre>
+<p>また、<code>icon.png</code> も必要になります。こちらも作成するか、他のプラグインからコピーしましょう。</p>
+<p>ここまで準備して、pyrcc を実行します。</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

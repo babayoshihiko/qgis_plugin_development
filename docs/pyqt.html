@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>QGIS Plugin 開発 - 9&nbsp; Git</title>
+<title>QGIS Plugin 開発 - 6&nbsp; PyQt</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./publish.html" rel="next">
-<link href="./m18n.html" rel="prev">
+<link href="./editor.html" rel="next">
+<link href="./python.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -70,7 +70,7 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Git</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">PyQt</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -120,7 +120,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pyqt.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">PyQt</span></a>
+  <a href="./pyqt.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">PyQt</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -135,7 +135,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./git.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Git</span></a>
+  <a href="./git.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Git</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -148,22 +148,14 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#github" id="toc-github" class="nav-link active" data-scroll-target="#github"><span class="toc-section-number">9.1</span>  GitHub</a></li>
-  <li><a href="#ラインセンス" id="toc-ラインセンス" class="nav-link" data-scroll-target="#ラインセンス"><span class="toc-section-number">9.2</span>  ラインセンス</a></li>
-  <li><a href="#ソースコードに-doi-を付与" id="toc-ソースコードに-doi-を付与" class="nav-link" data-scroll-target="#ソースコードに-doi-を付与"><span class="toc-section-number">9.3</span>  ソースコードに DOI を付与</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Git</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">PyQt</span></h1>
 </div>
 
 
@@ -178,34 +170,13 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="github" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="github"><span class="header-section-number">9.1</span> GitHub</h2>
-<p>Git はソース管理ツールで、GitHub が最もよく使われているリポジトリです。</p>
-<p>GitHub アカウントはすでに持っていることが前提です。</p>
-<p>GitHub でソースを管理する場合は、以下の手順が良いでしょう。</p>
-<ol type="1">
-<li>GitHub 上で <code>MyPlugin</code> リポジトリを作成</li>
-<li>ローカル PC でクローン作成</li>
-<li>開発した <code>MyPlugin</code> のファイルをコピー</li>
-<li>ファイルを add</li>
-<li>ファイルを commit</li>
-<li>ファイルを push</li>
-</ol>
-<p>これで、</p>
-</section>
-<section id="ラインセンス" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="ラインセンス"><span class="header-section-number">9.2</span> ラインセンス</h2>
-<p>GitHub で公開するにあたり、ソースコードのライセンスを決めましょう。</p>
-<p>公開される QGIS プラグインは、GPL バージョン 2 以降のライセンスである必要があります。</p>
-<p><a href="https://blog.qgis.org/2016/05/29/licensing-requirements-for-qgis-plugins/">https://blog.qgis.org/2016/05/29/licensing-requirements-for-qgis-plugins/</a></p>
-</section>
-<section id="ソースコードに-doi-を付与" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="ソースコードに-doi-を付与"><span class="header-section-number">9.3</span> ソースコードに DOI を付与</h2>
-<p>Digital Object Identifier (DOI) は、インターネット上の著作物のユニークな ID です。</p>
-<p>作ったプラグイン（プログラミング）の成果を、</p>
+<p>Qt (キュート) は、Linux, macOS, Windows などでアプリケーション開発を行う開発フレームワークです。</p>
+<p>プログラミング言語としては、C++ 言語向けとなっています。C++ 向けのレファレンスは、以下の通り。</p>
+<p><a href="https://doc.qt.io/qt-6/reference-overview.html">https://doc.qt.io/qt-6/reference-overview.html</a></p>
+<p>Qt は、Python にも拡張されています。ただし、Python サポートは、二種類あります。イギリスの Riverbank Computing 社が開発した PyQt と、Qt Company が開発した PySide です。PySide は Qt for Python とも言います。</p>
+<p>QGIS が使用しているのは、PyQt です。検索すると PySide が引っかかることが多いので、要注意です。</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -343,13 +314,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./m18n.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">多言語化</span></span>
+      <a href="./python.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Python 環境</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./publish.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">公開</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./editor.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">開発環境</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

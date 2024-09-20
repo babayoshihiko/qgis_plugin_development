@@ -9,15 +9,22 @@ jupyter: python3
 
 QGIS には、プラグイン開発に必要なスクリプト等が全て含まれていますが、なぜかそのままでは使えない形式になっています。
 
-また、GUI などのフレームワークには PyQt を使っています。似たようなものに PySide がありますが、
+また、GUI などのフレームワークには PyQt を使っています。Python で Qt を使うには、PySide というものもあります。インターネットで検索すると、PySide の情報の場合もあるので、確認するようにしましょう。
 
 | アプリ | macOS | Win | OSGeo4W |
 | ------ | ---- | ---- | ------- |
 | QGIS plugin | /Users/username/Library/Application\ Support/QGIS/QGIS3/profiles/default/python/plugins  | 右に同じ | C:\\Users\\username\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\default\\python\plugins |
 | python | /Applications/QGIS-LTR.app/Contents/MacOS/bin/python3 | C:\\Program Files\\apps\\Python39\\python3.exe | C:\\OSGeo4W\\apps\\Python312\\python3.exe |
 | pyrcc |  /Applications/QGIS-LTR.app/Contents/MacOS/bin/pyrcc5 | C:\\Program Files\\apps\\Python312\\Scripts\\pyrcc5.exe | C:\\OSGeo4W\\apps\\Python39\\Scripts\\pyrcc5.exe |
-| Designer | /Applications/QGIS-LTR.app/Contents/MacOS/Designer.app | C:\\Program Files\\apps\\Python312\\Scripts\\pylupdate5.exe | C:\\OSGeo4W\\apps\\Python39\\Scripts\\pylupdate5.exe |
+| pylupdate | /Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 | C:\\Program Files\\apps\\Python312\\Scripts\\pylupdate5.exe | C:\\OSGeo4W\\apps\\Python39\\Scripts\\pylupdate5.exe |
+| Designer | /Applications/QGIS-LTR.app/Contents/MacOS/Designer.app | C:\\Program Files\\apps\\Qt5\\bin\\designer.exe | C:\\OSGeo4W\\apps\\Qt5\\bin\\designer.exe  |
 | Linguist | /Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/qt5_applications/Qt/bin/Linguist.app | C:\\Program Files\\apps\\Qt5\\bin\\linguist.exe | C:\\OSGeo4W\\apps\\Qt5\\bin\\linguist.exe  |
+
+QGIS plugin の保存場所は、上記のところでない場合、QGIS の
+
+設定 > ユーザープロファイル > アクティブなプロファイルフォルダを開く
+
+から確認することができます。
 
 ### バージョンについて
 
@@ -190,11 +197,27 @@ OSGeo4W 版の場合
 なお、PowerShell の場合、call をなしで実行します。
 
 ```
-PS > C:\OSGeo4W\bin\o4w_env.bat
-PS > C:\OSGeo4W\apps\Python39\Scripts\pyrcc5.exe -o resources.py resources.qrc
+PS > cd C:\OSGeo4W\bin\
+PS C:\OSGeo4W\bin\> .\o4w_env.bat
+PS C:\OSGeo4W\bin\> C:\OSGeo4W\apps\Python39\Scripts\pyrcc5.exe -o resources.py resources.qrc
 ```
 
 これで QGIS Plugin としては完成です。
 
 QGIS を立ち上げて、プラグイン &gt; プラグインの管理とインストール から確認してみましょう。
 
+### Processing
+
+Plugin Builder は、Processing の場合、`resources.qrc` を作成してくれません。このため、自分で作成しましょう。
+
+```
+<RCC>
+    <qresource prefix="/plugins/MyPlugin" >
+        <file>icon.png</file>
+    </qresource>
+</RCC>
+```
+
+また、`icon.png` も必要になります。こちらも作成するか、他のプラグインからコピーしましょう。
+
+ここまで準備して、pyrcc を実行します。
