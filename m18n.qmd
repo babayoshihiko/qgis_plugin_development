@@ -60,7 +60,7 @@ macOS の QGIS は、/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 �
 ```{bash}
 #| eval: false
 cd /path/to/MyPlugin
-/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 -noobsolete i18n/jpdata.pro
+/Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 -noobsolete i18n/MyPlugin.pro
 ```
 
 これで、i18n フォルダ内に MyPlugin_ja.ts が作成されます。すでにある場合は、更新されます。

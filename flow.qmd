@@ -14,11 +14,11 @@ QGIS には、プラグイン開発に必要なスクリプト等が全て含ま
 | アプリ | macOS | Win | OSGeo4W |
 | ------ | ---- | ---- | ------- |
 | QGIS plugin | /Users/username/Library/Application\ Support/QGIS/QGIS3/profiles/default/python/plugins  | 右に同じ | C:\\Users\\username\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\default\\python\plugins |
-| python | /Applications/QGIS-LTR.app/Contents/MacOS/bin/python3 | C:\\Program Files\\apps\\Python39\\python3.exe | C:\\OSGeo4W\\apps\\Python312\\python3.exe |
-| pyrcc |  /Applications/QGIS-LTR.app/Contents/MacOS/bin/pyrcc5 | C:\\Program Files\\apps\\Python312\\Scripts\\pyrcc5.exe | C:\\OSGeo4W\\apps\\Python39\\Scripts\\pyrcc5.exe |
-| pylupdate | /Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 | C:\\Program Files\\apps\\Python312\\Scripts\\pylupdate5.exe | C:\\OSGeo4W\\apps\\Python39\\Scripts\\pylupdate5.exe |
+| python | /Applications/QGIS-LTR.app/Contents/MacOS/bin/python3 | C:\\Program Files\\QGIS 3.38.2\\apps\\Python39\\python3.exe | C:\\OSGeo4W\\apps\\Python312\\python3.exe |
+| pyrcc |  /Applications/QGIS-LTR.app/Contents/MacOS/bin/pyrcc5 | C:\\Program Files\\QGIS 3.38.2\\apps\\Python312\\Scripts\\pyrcc5.exe | C:\\OSGeo4W\\apps\\Python39\\Scripts\\pyrcc5.exe |
+| pylupdate | /Applications/QGIS-LTR.app/Contents/MacOS/bin/pylupdate5 | C:\\Program Files\\QGIS 3.38.2\\apps\\Python312\\Scripts\\pylupdate5.exe | C:\\OSGeo4W\\apps\\Python39\\Scripts\\pylupdate5.exe |
 | Designer | /Applications/QGIS-LTR.app/Contents/MacOS/Designer.app | C:\\Program Files\\apps\\Qt5\\bin\\designer.exe | C:\\OSGeo4W\\apps\\Qt5\\bin\\designer.exe  |
-| Linguist | /Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/qt5_applications/Qt/bin/Linguist.app | C:\\Program Files\\apps\\Qt5\\bin\\linguist.exe | C:\\OSGeo4W\\apps\\Qt5\\bin\\linguist.exe  |
+| Linguist | /Applications/QGIS-LTR.app/Contents/Resources/python/site-packages/qt5_applications/Qt/bin/Linguist.app | C:\\Program Files\\QGIS 3.38.2\\apps\\Qt5\\bin\\linguist.exe | C:\\OSGeo4W\\apps\\Qt5\\bin\\linguist.exe  |
 
 QGIS plugin の保存場所は、上記のところでない場合、QGIS の
 
@@ -106,12 +106,14 @@ Windows では、linguist.exe と designer.exe、pyrcc.exe と pylupdate.exe は
 
 pyrcc.exe と pylupdate.exe を使う直前に qt5 や python3 の環境を読み込ませることで解決できます。
 
+コマンドプロンプトを開き、以下のように実行してください。なお、PowerShell では以下のコマンドは正常に動作しません。
+
 スタンドアロン版の場合
 
 ```
 > call C:\Program Files\QGIS 3.38.2\bin\o4w_env.bat
 > cd C:\Users\username\AppData\Roaming\QGIS\QGIS3\profiles\python\plugins\MyPlugin
-> C:\Program Files\QGIS 3.38.2\apps\Python312\Scripts\pyrcc5.exe -o resources.py resources.qrc
+> "C:\Program Files\QGIS 3.38.2\apps\Python312\Scripts\pyrcc5.exe" -o resources.py resources.qrc
 ```
 
 OSGeo4W 版の場合
@@ -120,15 +122,6 @@ OSGeo4W 版の場合
 > call C:\OSGeo4W\bin\o4w_env.bat
 > cd C:\Users\username\AppData\Roaming\QGIS\QGIS3\profiles\python\plugins\MyPlugin
 > C:\OSGeo4W\apps\Python39\Scripts\pyrcc5.exe -o resources.py resources.qrc
-```
-
-なお、PowerShell の場合、call を無くします。
-
-```
-PS C:\Users\username> cd C:\OSGeo4W\bin\
-PS C:\OSGeo4W\bin> ./o4w_env.bat
-PS C:\Users\username> cd C:\Users\username\AppData\Roaming\QGIS\QGIS3\profiles\python\plugins\MyPlugin
-PS C:\Users\username\AppData\Roaming\QGIS\QGIS3\profiles\python\plugins\MyPlugin> C:\OSGeo4W\apps\Python39\Scripts\pyrcc5.exe -o resources.py resources.qrc
 ```
 
 linguist.exe と designer.exe は、そのままでは実行できません。C:\\OSGeo4W\\saga_gui.bat などを参考に、以下のファイルを作成します。
@@ -184,7 +177,7 @@ Windows スタンドアロン版の場合
 
 ```
 > call C:\Program Files\QGIS 3.38.2\bin\o4w_env.bat
-> C:\Program Files\apps\Python312\Scripts\pyrcc5.exe -o resources.py resources.qrc
+> "C:\Program Files\QGIS 3.38.2\apps\Python312\Scripts\pyrcc5.exe" -o resources.py resources.qrc
 ```
 
 OSGeo4W 版の場合
@@ -192,14 +185,6 @@ OSGeo4W 版の場合
 ```
 > call C:\OSGeo4W\bin\o4w_env.bat
 > C:\OSGeo4W\apps\Python39\Scripts\pyrcc5.exe -o resources.py resources.qrc
-```
-
-なお、PowerShell の場合、call をなしで実行します。
-
-```
-PS > cd C:\OSGeo4W\bin\
-PS C:\OSGeo4W\bin\> .\o4w_env.bat
-PS C:\OSGeo4W\bin\> C:\OSGeo4W\apps\Python39\Scripts\pyrcc5.exe -o resources.py resources.qrc
 ```
 
 これで QGIS Plugin としては完成です。
